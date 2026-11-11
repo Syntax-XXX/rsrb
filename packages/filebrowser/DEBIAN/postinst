@@ -11,7 +11,8 @@ if [ "$1" = configure ]; then
     pw=$(head -c 24 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 16)
     filebrowser config init --database "$db" >/dev/null
     filebrowser users add admin "$pw" --perm.admin --database "$db" >/dev/null
-    printf 'File Browser: sign in as admin with password %s (change it under Settings)\n' "$pw"
+    (umask 077; printf '%s\n' "$pw" > /var/lib/filebrowser/initial-password)
+    printf 'File Browser: sign in as admin with password %s (change it under Settings; also in /var/lib/filebrowser/initial-password)\n' "$pw"
   fi
   systemctl daemon-reload >/dev/null 2>&1 || true
   systemctl enable filebrowser.service >/dev/null 2>&1 || true

@@ -73,8 +73,8 @@ for pair in armel:armv5 armhf:armv7 arm64:arm64 amd64:amd64; do
   r="$work/filebrowser-$deb"; mkdir -p "$r/usr/bin"
   curl -fsSL "https://github.com/filebrowser/filebrowser/releases/download/v$FB_VERSION/linux-$up-filebrowser.tar.gz" | tar -xz -C "$r/usr/bin" filebrowser
   cp -r packages/filebrowser/. "$r/"
-  sed -i "s/@VERSION@/$FB_VERSION-1/; s/@ARCH@/$deb/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r/DEBIAN/control"
-  dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/filebrowser_${FB_VERSION}-1_$deb.deb" >/dev/null
+  sed -i "s/@VERSION@/$FB_VERSION-2/; s/@ARCH@/$deb/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r/DEBIAN/control"
+  dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/filebrowser_${FB_VERSION}-2_$deb.deb" >/dev/null
 done
 
 for p in rsrb-flash-kernel rsrb rsrb-core rsrb-full rsrb-rs812 rsrb-rs812-core rsrb-rs812-full rsrb-rs812-hw rsrb-neofetch rsrb-release; do

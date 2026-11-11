@@ -1,6 +1,11 @@
 #!/bin/sh
 set -e
+# base-files is Essential: keep the original in place (copy + --no-rename), so the file never goes missing
+divert() {
+  [ -e "$1.debian" ] || cp -a "$1" "$1.debian"
+  dpkg-divert --package rsrb-release --add --no-rename --divert "$1.debian" "$1" >/dev/null
+}
 if [ "$1" = install ] || [ "$1" = upgrade ]; then
-  dpkg-divert --package rsrb-release --add --rename --divert /usr/lib/os-release.debian /usr/lib/os-release
-  dpkg-divert --package rsrb-release --add --rename --divert /etc/issue.debian /etc/issue
+  divert /usr/lib/os-release
+  divert /etc/issue
 fi

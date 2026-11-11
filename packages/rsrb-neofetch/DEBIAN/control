@@ -1,5 +1,5 @@
 Package: rsrb-neofetch
-Version: 1.0.0
+Version: 1.0.1
 Architecture: all
 Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
 Depends: neofetch

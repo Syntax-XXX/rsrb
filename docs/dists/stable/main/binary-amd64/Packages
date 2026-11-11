@@ -9,11 +9,11 @@ Depends: debconf (>= 0.5) | debconf-2.0
 Recommends: smartmontools, hdparm
 Suggests: samba, wsdd, nfs-kernel-server
 Filename: pool/main/rackpanel_1.1.0_amd64.deb
-Size: 2034496
-MD5sum: e7d51ce55321761a2ac1268c8753f770
-SHA1: 170c79c1753e1bb6e9911f591f95cf9122157737
-SHA256: ebf9a5b4de7e1f7e8778b94a5c97e8fda4308f855eb986d6fe7da49a84af8953
-SHA512: 4f54e1ac078032729386c48efd4fb70e2770cb55ad4d3cb3809cfb3e74665cb23b371b623225821aeb136eb49dfa9f0e3b86ad071072a32526ef66a2078077cd
+Size: 2034020
+MD5sum: ff158540a3c7caf4509681e08748a876
+SHA1: ea5a2e55a58e90febd90c708b1507900d77e582f
+SHA256: a42ffcea3db8e1ab398184ca827420ca921ce540b45c129a7995ffc1c788e1ac
+SHA512: 71dea6be984342450ed66c86c0c064a7a8a6d66b2ca18a751b8b0fb5d997a6d27a4bf865bf9d1ccabbc6e2e78549180f9b2caabaec026ce99d994d0af054f90d
 Homepage: https://github.com/Syntax-XXX/rackpanel
 Description: lightweight NAS web UI (DSM replacement)
  Storage, SMART, RAID, files, SMB/NFS shares, users, apps, services,
@@ -22,17 +22,17 @@ Description: lightweight NAS web UI (DSM replacement)
 
 Package: rsrb-neofetch
 Architecture: all
-Version: 1.0.0
+Version: 1.0.1
 Priority: optional
 Section: utils
 Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
 Depends: neofetch
-Filename: pool/main/rsrb-neofetch_1.0.0_all.deb
-Size: 1868
-MD5sum: 248933e67eecaa0837fbb024cb55239c
-SHA1: 95dc50ee212352b0b5d147334c18b971eef80269
-SHA256: d3f06dbadd08d5bab927b4681546bd106988dcedda4460cb588c17914f291b7d
-SHA512: c7fafe2299a896e5c748bbb8d77d43b524ce7ec79f75d6767fd4ce3dde4f4c7d7e8a428a07328a497cbb4f352f148e8854b7d11922045b9bca1f789e3a5632ef
+Filename: pool/main/rsrb-neofetch_1.0.1_all.deb
+Size: 2060
+MD5sum: 1c67efa5d0753141cdd08bc1d0f04b90
+SHA1: 0322061426f7087d45cf4a78945bd48fceac286a
+SHA256: 6afce1d0e30023e497b62ec38455a635028b4cb9e9dc7935d3df4eaaeb643859
+SHA512: 63fcc7289713c189ffac393380eea5ff47bb8d67a6f906c02679ac188b931214c577986013d8e1d505bda3bfc3195dd3c86617bfb20365f921e160d4bc3c603d
 Homepage: https://github.com/Syntax-XXX/rsrb
 Description: RSRB neofetch preset (RackStation ReBoot logo)
  Makes neofetch show the RSRB logo and NAS-relevant info (volumes,
@@ -41,18 +41,18 @@ Description: RSRB neofetch preset (RackStation ReBoot logo)
 
 Package: rsrb-release
 Architecture: all
-Version: 1.0.0
+Version: 1.0.1
 Priority: optional
 Section: admin
 Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
 Depends: base-files
 Recommends: rsrb-neofetch
-Filename: pool/main/rsrb-release_1.0.0_all.deb
-Size: 1736
-MD5sum: 8a8ee1eee17fbf69e7fabc393a9f9c8b
-SHA1: f4bdcbef21ad4094b5f855990eb1d9ad6b23681a
-SHA256: eef7862a6f8a7ba9bf5a8e53803ca0f9c5f3be786621bde706be085b8a5df2a4
-SHA512: 895024dbac6cf7e6d6e5c7e231f7427f7a8b5cfbd8cbb51f6e66d85dd49d90b8947a7684160248db575518a47dff8612d59d83440b137a48e8eeb576865894a4
+Filename: pool/main/rsrb-release_1.0.1_all.deb
+Size: 1856
+MD5sum: 27f480164885f6185345292b7a5ded63
+SHA1: ce2fb6e1efa137e7f95f5f1ea8f87e3532301d75
+SHA256: 26c7326dfdc24e5db23b22e2318540a609d4bac85c6f62f17e1ce1ba68147e9c
+SHA512: 3dcd747ebc10ffc7d8baef8b8f387c629d6c67cf782e1f8969aa142e1acec58aa61dbf2cc6c04c56e1ae35c0897bd088a0b2fb144424639f062d0289aaa28ec2
 Homepage: https://github.com/Syntax-XXX/rsrb
 Description: RSRB (RackStation ReBoot) system identity
  Brands a Debian 12 system as RSRB: /etc/os-release (ID=rsrb,

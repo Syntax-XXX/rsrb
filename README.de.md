@@ -51,5 +51,5 @@ RP_DIST=../rackpanel/dist RP_VERSION=1.1.0 ./build.sh   # aus einem lokalen Buil
 ```
 
 `build.sh` baut die `.deb`-Dateien aus `packages/`, schreibt die Paketquelle nach `docs/` und signiert sie mit dem
-Schlüssel in `GNUPGHOME` (Standard `/root/rsrb-apt/gnupg`, wird nie eingecheckt). `docs/` wird von GitHub Pages
-ausgeliefert; Cloudflare Pages geht genauso (Repository verbinden, kein Build-Befehl, Ausgabeordner `docs`).
+Schlüssel in `GNUPGHOME` (Standard `/root/rsrb-apt/gnupg`, wird nie eingecheckt). `./publish.sh` schiebt `docs/` als einzelnen Commit
+auf den Branch `gh-pages`, den GitHub Pages ausliefert. Cloudflare Pages geht genauso (Branch `gh-pages` verbinden, kein Build-Befehl).

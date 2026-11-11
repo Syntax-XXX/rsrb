@@ -66,5 +66,5 @@ RP_DIST=../rackpanel/dist RP_VERSION=1.1.0 ./build.sh   # from a local build
 ```
 
 `build.sh` builds the `.deb` files from `packages/`, writes the repository into `docs/` and signs it with the key in
-`GNUPGHOME` (default `/root/rsrb-apt/gnupg`, never committed). `docs/` is served by GitHub Pages; Cloudflare Pages
-works too (connect this repository, no build command, output directory `docs`).
+`GNUPGHOME` (default `/root/rsrb-apt/gnupg`, never committed). `./publish.sh` pushes `docs/` as a single commit to the
+`gh-pages` branch, which GitHub Pages serves. Cloudflare Pages works too (connect the `gh-pages` branch, no build command).

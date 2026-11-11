@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSRB · RackStation ReBoot</title>
+<meta name="description" content="RSRB – Debian 12 instead of DSM on the Synology RS812, with its own kernel, web UI and APT repository.">
+<meta name="theme-color" content="#070b16">
+<style>
+:root { --bg:#070b16; --glass:rgba(255,255,255,.06); --line:rgba(255,255,255,.11); --text:#e7ecf5; --muted:#9aa6bd; --a:#5eead4; --b:#818cf8; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:15.5px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; overflow-x:hidden; }
+.bg { position:fixed; inset:0; z-index:-1; overflow:hidden; }
+.bg i { position:absolute; width:80vmax; height:80vmax; border-radius:50%; opacity:.7; }
+.bg i:nth-child(1) { background:radial-gradient(circle, rgba(14,165,164,.6), transparent 62%); left:-30vmax; top:-35vmax; }
+.bg i:nth-child(2) { background:radial-gradient(circle, rgba(109,40,217,.55), transparent 62%); right:-32vmax; top:10vmax; }
+.wrap { max-width:980px; margin:0 auto; padding:40px 16px 60px; }
+.glass { background:var(--glass); border:1px solid var(--line); border-radius:22px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); }
+header { display:flex; gap:28px; align-items:center; padding:28px; flex-wrap:wrap; }
+pre.logo { margin:0; font:700 11px/1.1 ui-monospace, "DejaVu Sans Mono", Menlo, monospace; }
+.logo .a { color:var(--a); } .logo .b { color:var(--b); }
+h1 { margin:0 0 6px; font-size:34px; letter-spacing:-.5px; }
+h1 span { background:linear-gradient(135deg,var(--a),var(--b)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+h2 { margin:0 0 12px; font-size:13px; text-transform:uppercase; letter-spacing:1.6px; color:var(--muted); }
+p { margin:0 0 10px; color:var(--muted); }
+.grid { display:grid; gap:18px; grid-template-columns:repeat(2,1fr); margin-top:18px; }
+.card { padding:24px; min-width:0; }
+.wide { grid-column:1/-1; }
+code, .cmd { font:13.5px/1.5 ui-monospace, "DejaVu Sans Mono", Menlo, monospace; }
+.cmd { display:flex; gap:10px; align-items:center; background:rgba(0,0,0,.35); border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin:8px 0; overflow-x:auto; white-space:nowrap; }
+.cmd span { flex:1; } .cmd span::before { content:"$ "; color:var(--a); }
+button.copy { flex:none; background:var(--glass); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:4px 10px; font:inherit; font-size:12px; cursor:pointer; }
+button.copy:hover { background:rgba(255,255,255,.12); }
+.pkg { display:flex; gap:14px; padding:12px 0; border-top:1px solid var(--line); }
+.pkg:first-of-type { border-top:0; }
+.pkg b { color:var(--text); font-family:ui-monospace, Menlo, monospace; }
+a { color:var(--a); }
+.btn { display:inline-block; padding:9px 16px; border-radius:12px; text-decoration:none; font-weight:600; margin:4px 8px 0 0; }
+.btn.p { background:linear-gradient(135deg,var(--a),var(--b)); color:#0b1020; }
+.btn.s { border:1px solid var(--line); color:var(--text); }
+.lang { position:absolute; top:16px; right:16px; }
+.lang button { background:var(--glass); color:var(--muted); border:1px solid var(--line); border-radius:8px; padding:4px 10px; cursor:pointer; font:inherit; font-size:12px; }
+.lang button[aria-pressed=true] { color:var(--text); border-color:var(--a); }
+footer { margin-top:28px; text-align:center; font-size:13px; color:var(--muted); }
+[data-l] { display:none; } html[lang=en] [data-l=en], html[lang=de] [data-l=de] { display:revert; }
+@media (max-width:760px) { .grid { grid-template-columns:1fr; } h1 { font-size:27px; } header { padding:22px; } }
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"><i></i><i></i></div>
+<div class="lang"><button data-set="en">EN</button> <button data-set="de">DE</button></div>
+<div class="wrap">
+  <header class="glass">
+<pre class="logo" aria-label="RSRB"><span class="a"> ██████╗ ███████╗
+ ██╔══██╗██╔════╝
+ ██████╔╝███████╗
+ ██╔══██╗╚════██║
+ ██║  ██║███████║
+ ╚═╝  ╚═╝╚══════╝</span>
+<span class="b"> ██████╗ ██████╗
+ ██╔══██╗██╔══██╗
+ ██████╔╝██████╔╝
+ ██╔══██╗██╔══██╗
+ ██║  ██║██████╔╝
+ ╚═╝  ╚═╝╚═════╝</span></pre>
+    <div style="flex:1;min-width:240px">
+      <h1><span>RSRB</span> · RackStation ReBoot</h1>
+      <p data-l="en">Debian 12 instead of DSM on the Synology RS812 – with its own kernel, a web UI and this package repository.</p>
+      <p data-l="de">Debian 12 statt DSM auf der Synology RS812 – mit eigenem Kernel, Weboberfläche und dieser Paketquelle.</p>
+      <a class="btn p" href="https://github.com/Syntax-XXX/rs812-debian"><span data-l="en">Install the OS</span><span data-l="de">OS installieren</span></a>
+      <a class="btn s" href="https://github.com/Syntax-XXX/rackpanel">RackPanel</a>
+      <a class="btn s" href="https://github.com/Syntax-XXX/rsrb">GitHub</a>
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="card glass wide">
+      <h2 data-l="en">1 · Add the repository</h2><h2 data-l="de">1 · Paketquelle einrichten</h2>
+      <div class="cmd"><span>curl -fsSL https://syntax-xxx.github.io/rsrb/setup.sh | sudo sh</span><button class="copy">Copy</button></div>
+      <h2 data-l="en" style="margin-top:18px">2 · Install packages</h2><h2 data-l="de" style="margin-top:18px">2 · Pakete installieren</h2>
+      <div class="cmd"><span>sudo apt install rackpanel rsrb-neofetch rsrb-release</span><button class="copy">Copy</button></div>
+      <p data-l="en">Works on any Debian/Ubuntu with systemd: armel (RS812), armhf, arm64 and amd64. Updates arrive with <code>apt upgrade</code>.</p>
+      <p data-l="de">Läuft auf jedem Debian/Ubuntu mit systemd: armel (RS812), armhf, arm64 und amd64. Updates kommen mit <code>apt upgrade</code>.</p>
+    </section>
+
+    <section class="card glass">
+      <h2 data-l="en">Packages</h2><h2 data-l="de">Pakete</h2>
+      <div class="pkg"><div><b>rackpanel</b>
+        <p data-l="en">The NAS web UI: storage, SMART, RAID, files, SMB/NFS shares, users, apps, updates, API. Asks for user and password during install.</p>
+        <p data-l="de">Die NAS-Weboberfläche: Speicher, SMART, RAID, Dateien, SMB/NFS-Freigaben, Benutzer, Apps, Updates, API. Fragt bei der Installation nach Benutzer und Passwort.</p></div></div>
+      <div class="pkg"><div><b>rsrb-neofetch</b>
+        <p data-l="en">neofetch with the RSRB logo and NAS info (volumes, IP, web UI). Also adds <code>rsrbfetch</code>.</p>
+        <p data-l="de">neofetch mit RSRB-Logo und NAS-Infos (Volumes, IP, Weboberfläche). Dazu der Befehl <code>rsrbfetch</code>.</p></div></div>
+      <div class="pkg"><div><b>rsrb-release</b>
+        <p data-l="en">Brands the system as RSRB (os-release, login banner, login message). Debian's files come back when you remove it.</p>
+        <p data-l="de">Macht das System zu RSRB (os-release, Anmeldebanner, Login-Meldung). Beim Entfernen kommen Debians Dateien zurück.</p></div></div>
+    </section>
+
+    <section class="card glass">
+      <h2 data-l="en">Manual setup</h2><h2 data-l="de">Von Hand einrichten</h2>
+      <p data-l="en">Key and source list, if you prefer not to pipe a script into a shell:</p>
+      <p data-l="de">Schlüssel und Quelle, falls du kein Skript in die Shell leiten willst:</p>
+      <div class="cmd"><span>sudo curl -fsSLo /usr/share/keyrings/rsrb.gpg https://syntax-xxx.github.io/rsrb/rsrb.gpg</span><button class="copy">Copy</button></div>
+      <div class="cmd"><span>echo "deb [signed-by=/usr/share/keyrings/rsrb.gpg] https://syntax-xxx.github.io/rsrb stable main" | sudo tee /etc/apt/sources.list.d/rsrb.list</span><button class="copy">Copy</button></div>
+      <p style="font-size:13px"><span data-l="en">Signing key fingerprint</span><span data-l="de">Fingerabdruck des Signierschlüssels</span>:<br><code style="overflow-wrap:anywhere">C967 9F05 04B2 68FE BE8D 73C7 67C5 9D95 3A7E DE6A</code></p>
+    </section>
+  </div>
+  <footer>RSRB · <a href="https://github.com/Syntax-XXX/rs812-debian">rs812-debian</a> · <a href="https://github.com/Syntax-XXX/rackpanel">rackpanel</a> · <a href="https://github.com/Syntax-XXX/rsrb">rsrb</a></footer>
+</div>
+<script>
+const setLang = (l) => { document.documentElement.lang = l; document.querySelectorAll('[data-set]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.set === l)); try { localStorage.setItem('lang', l); } catch {} };
+let saved = null; try { saved = localStorage.getItem('lang'); } catch {}
+setLang(saved || ((navigator.language || '').startsWith('de') ? 'de' : 'en'));
+document.querySelectorAll('[data-set]').forEach((b) => (b.onclick = () => setLang(b.dataset.set)));
+document.querySelectorAll('button.copy').forEach((b) => (b.onclick = () => {
+  navigator.clipboard?.writeText(b.previousElementSibling.textContent).then(() => { b.textContent = '✓'; setTimeout(() => (b.textContent = 'Copy'), 1500); });
+}));
+</script>
+</body>
+</html>

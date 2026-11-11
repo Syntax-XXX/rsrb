@@ -1,0 +1,12 @@
+Package: rsrb-neofetch
+Version: 1.0.0
+Architecture: all
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: neofetch
+Section: utils
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB neofetch preset (RackStation ReBoot logo)
+ Makes neofetch show the RSRB logo and NAS-relevant info (volumes,
+ local IP). Your own ~/.config/neofetch/config.conf still wins.
+ Also provides the rsrbfetch command.

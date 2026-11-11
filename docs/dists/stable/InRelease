@@ -1,0 +1,54 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Architectures: armel armhf arm64 amd64
+Codename: stable
+Components: main
+Date: Wed, 11 Nov 2026 21:33:19 +0000
+Description: RSRB – RackStation ReBoot packages
+Label: RSRB
+Origin: RSRB
+Suite: stable
+MD5Sum:
+ 956d67ff1ea645a6e2cc08be4fa5403f             2665 main/binary-amd64/Packages
+ 887fac2a877cb2bc4ca850ed2fcddb33             1432 main/binary-amd64/Packages.gz
+ 74b843a2b280065602a3c45e845e56ce             2665 main/binary-arm64/Packages
+ e4a3379de583ff28526ef4e9d7e47b06             1432 main/binary-arm64/Packages.gz
+ b0fa2692dadc37697cee56f31c2d453f             2665 main/binary-armel/Packages
+ a6fc48c8c98b8a3d28ecdb3bc7c6448a             1430 main/binary-armel/Packages.gz
+ db4989dff85ce84899ebf964798bdda9             2665 main/binary-armhf/Packages
+ 6fb7d43746a9aa56bddc429108940528             1430 main/binary-armhf/Packages.gz
+SHA1:
+ c0d6fcf5503380efbea34b808c856cabb7fe8e8c             2665 main/binary-amd64/Packages
+ b29c0040cdc612d3803e4130e66896c3c55d98ba             1432 main/binary-amd64/Packages.gz
+ 7dafd32fbc6cf5409769decf08bef9e0472da1fd             2665 main/binary-arm64/Packages
+ af0abe49bef02d5c0d878a6df137722b800e1296             1432 main/binary-arm64/Packages.gz
+ 494dddf3b6ddd43f6a76c6ab62e58cb1d89ecbe6             2665 main/binary-armel/Packages
+ dba97585a202616e3b87c0c48ac002535cc97125             1430 main/binary-armel/Packages.gz
+ 0df3573a44b45d44984a2c27db58e986331dcb7b             2665 main/binary-armhf/Packages
+ de7d29f411811e94c1736dd0f4ee46814793c9c7             1430 main/binary-armhf/Packages.gz
+SHA256:
+ 568006e79a9c8e930f7a7991f64de61ebf16bf7f57d251f07c24aa50f86f3dbc             2665 main/binary-amd64/Packages
+ cedaf1d8029e42c3f7d2be59e5f4a543982176c8fbe8ab6f78869b0e56c50044             1432 main/binary-amd64/Packages.gz
+ 36ffb8ba11776b12746075c9aad7bfe4fb0e51f7432670adc0cce5251503fe05             2665 main/binary-arm64/Packages
+ 441ce38631ca3137facbd24f374de0cc9ff53a9f89f98220197d54310ada9b53             1432 main/binary-arm64/Packages.gz
+ 38f2409bee0382c83e840ec120e86753e88d9fc7d5ef8f902d39da792753861c             2665 main/binary-armel/Packages
+ 4f10bfef44c5638e34390adff7c13ce71ae50e23d5387e552efc1965bdda20c7             1430 main/binary-armel/Packages.gz
+ be2405c9a7da975e1a900856de4f9d128273f473cf91101ac429e1e0f2fd5ffb             2665 main/binary-armhf/Packages
+ 8262f32d13f098223cd6b9425cb030c295aeec2ed2025d7b014c20ebe37d37c3             1430 main/binary-armhf/Packages.gz
+SHA512:
+ 851b77bc2af7d7a2996a2c0e11a33fc428abb632b098d20e85ca0f3a695fa8f060b13948f378b7da9831ca370ec33445f208bc4dbfd42f3361067f8f7666d752             2665 main/binary-amd64/Packages
+ 4ffc5ddb6cd63a80379e93fe845e717597dee9a44d15326c34f409a72ca95ce8283adde4583c32a02cdc0ce54421eb4aae08b05d556c3ebbeff31dc663b366c2             1432 main/binary-amd64/Packages.gz
+ 77195237535faa77cbdef51eb60c07d4220c91fa17ff4ba792cc11f1a04868f7223005a7ea56b75756fa114d7904b1594e1088271bf7b3d7cf5e6b9f326551eb             2665 main/binary-arm64/Packages
+ 394a73db7c3bf395e2f379ebe14450a8161e799cb1d7d8b18f9894372d047f7983beb6fbde54c312cb6bbf0c0a60b8e6d2f45fcbb8b1462e99cf8009839eea4b             1432 main/binary-arm64/Packages.gz
+ 48bb055709ecbb72135a8cedc161d8ffd7a2ae746bf93212f27942582d326a9250bc1584f8ec48e37e379239fadcece23fe26aa24e1b1ffe01256d7e33b30734             2665 main/binary-armel/Packages
+ e00a1cb8b2fb3e04a62ddfeffa980d973dbfbc8c77971ffed766d47928c6c0f6369f8c77ff804417bb4e0cc56ce83494074c142ac76306e2ac422587130d1c4f             1430 main/binary-armel/Packages.gz
+ 92ca4b07c43e5359a1907afb1871bd11d61640f24da947df3bcc33422fc065c6b9c59c69583a54397fc6bf1cff0bcf923e8a4511c90615c985066d927a3fa07e             2665 main/binary-armhf/Packages
+ 88727b0f18c5244d78e5592c0e4359c213e94bb18d0c5520142c2c33f39bf2fd0362fc84a947e08f1bf2ad2416a6c29a69b813fe296b0b5ef78927a3433980b8             1430 main/binary-armhf/Packages.gz
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYIAB0WIQTJZ58FBLJo/r6Nc8dnxZ2VOn7eagUCavTfHwAKCRBnxZ2VOn7e
+auTkAP9YgmrXuzxVr3c6alWCHMA89oj8CxPztXc/4oQAiNUJqAD/ep5Rh9P7ZYhl
+alfj8ntnY/dtpU3HCIED52ry10SIyQw=
+=iMeC
+-----END PGP SIGNATURE-----

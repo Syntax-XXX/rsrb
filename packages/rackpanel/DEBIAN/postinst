@@ -1,0 +1,36 @@
+#!/bin/sh
+set -e
+. /usr/share/debconf/confmodule
+
+if [ "$1" = configure ]; then
+  # leftovers of the tarball installer (RackPanel 1.0)
+  if grep -qs /usr/local/bin/rackpanel /etc/systemd/system/rackpanel.service; then
+    rm -f /etc/systemd/system/rackpanel.service /usr/local/bin/rackpanel
+  fi
+  mkdir -p /var/lib/rackpanel && chmod 700 /var/lib/rackpanel
+
+  db_get rackpanel/port; port=${RET:-80}
+  case "$port" in ''|*[!0-9]*) port=80 ;; esac
+  printf '# Generated from debconf – change with: dpkg-reconfigure rackpanel\nRACKPANEL_OPTS="-listen :%s"\n' "$port" > /etc/default/rackpanel
+
+  db_get rackpanel/password; pw=$RET
+  if [ -n "$pw" ]; then
+    db_get rackpanel/username; u=${RET:-admin}
+    printf '%s\n' "$pw" | rackpanel -set-user "$u" >/dev/null || echo "RackPanel: could not set the user – later: rackpanel -set-user NAME" >&2
+    db_set rackpanel/password ""  # don't keep the password in the debconf database
+  fi
+  grep -qs '"username"' /var/lib/rackpanel/state.json || echo "RackPanel: no user yet – create one with: rackpanel -set-user admin" >&2
+
+  systemctl daemon-reload >/dev/null 2>&1 || true
+  systemctl enable rackpanel.service >/dev/null 2>&1 || true
+  if [ -z "$2" ]; then
+    systemctl start rackpanel.service || true
+  else
+    # update: restart once apt/dpkg are done – the update may have been started from the panel itself,
+    # and restarting it mid-run would kill apt
+    systemd-run --quiet --collect --unit="rackpanel-restart-$$" sh -c \
+      'while pidof apt-get apt dpkg >/dev/null; do sleep 2; done; systemctl try-restart rackpanel.service' \
+      || systemctl try-restart rackpanel.service || true
+  fi
+fi
+db_stop

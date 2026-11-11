@@ -1,0 +1,2 @@
+#!/bin/sh
+exec neofetch --config /etc/rsrb/neofetch.conf "$@"

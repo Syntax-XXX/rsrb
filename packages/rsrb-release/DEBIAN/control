@@ -1,0 +1,15 @@
+Package: rsrb-release
+Version: 1.0.0
+Architecture: all
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: base-files
+Recommends: rsrb-neofetch
+Section: admin
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB (RackStation ReBoot) system identity
+ Brands a Debian 12 system as RSRB: /etc/os-release (ID=rsrb,
+ ID_LIKE=debian, version stays 12/bookworm so tools keep working),
+ the console login banner and a short login message.
+ Debian's original files are kept aside with dpkg-divert and come back
+ when the package is removed.

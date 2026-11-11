@@ -1,0 +1,15 @@
+Package: rackpanel
+Version: @VERSION@
+Architecture: @ARCH@
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: debconf (>= 0.5) | debconf-2.0
+Recommends: smartmontools, hdparm
+Suggests: samba, wsdd, nfs-kernel-server
+Section: admin
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rackpanel
+Installed-Size: @SIZE@
+Description: lightweight NAS web UI (DSM replacement)
+ Storage, SMART, RAID, files, SMB/NFS shares, users, apps, services,
+ updates and logs in the browser. A single program without a database –
+ runs even on ARMv5 with 512 MB RAM.

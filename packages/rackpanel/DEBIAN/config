@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+. /usr/share/debconf/confmodule
+# ask on the first install (no panel user yet) and on dpkg-reconfigure
+if [ "$1" = reconfigure ] || ! grep -qs '"username"' /var/lib/rackpanel/state.json; then
+  db_input high rackpanel/username || true
+  db_input high rackpanel/password || true
+  db_input medium rackpanel/port || true
+  db_go || true
+fi

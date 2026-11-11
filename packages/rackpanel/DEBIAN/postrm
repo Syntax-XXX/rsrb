@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+if [ "$1" = purge ]; then
+  rm -rf /var/lib/rackpanel /etc/default/rackpanel
+  if [ -e /usr/share/debconf/confmodule ]; then . /usr/share/debconf/confmodule; db_purge; fi
+fi
+systemctl daemon-reload >/dev/null 2>&1 || true

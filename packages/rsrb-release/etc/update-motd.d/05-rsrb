@@ -1,0 +1,5 @@
+#!/bin/sh
+printf '\n  \033[1;38;5;86mRS\033[38;5;105mRB\033[0m  RackStation ReBoot · kernel %s\n' "$(uname -r)"
+[ -x /usr/bin/rackpanel ] && printf '  Web UI: http://%s%s\n' "$(hostname -I 2>/dev/null | cut -d' ' -f1)" "$(sed -n 's/.*-listen :\([0-9]*\).*/:\1/p' /etc/default/rackpanel 2>/dev/null | sed 's/^:80$//')"
+command -v rsrbfetch >/dev/null && printf '  Run \033[1mrsrbfetch\033[0m for system info\n'
+printf '\n'

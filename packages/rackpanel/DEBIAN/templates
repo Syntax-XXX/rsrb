@@ -1,0 +1,17 @@
+Template: rackpanel/username
+Type: string
+Default: admin
+Description: RackPanel username:
+ You sign in to the web UI with this name (lowercase letters, digits, . _ -).
+
+Template: rackpanel/password
+Type: password
+Description: RackPanel password:
+ At least 5 characters. Leave it empty to set it later with
+ "rackpanel -set-user NAME".
+
+Template: rackpanel/port
+Type: string
+Default: 80
+Description: Web UI port:
+ 80 means you simply open http://NAME-OF-THE-DEVICE in a browser.

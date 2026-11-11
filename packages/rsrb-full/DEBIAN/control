@@ -1,0 +1,11 @@
+Package: rsrb-full
+Version: 1.0.0
+Architecture: all
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-core, rackpanel, rackbox
+Recommends: wireguard-tools, nftables
+Section: metapackages
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Full – NAS with web UI and containers (metapackage)
+ RSRB Core plus the RackPanel web UI and RackBox containers (Docker images without a daemon).

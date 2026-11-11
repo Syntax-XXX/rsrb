@@ -1,0 +1,11 @@
+Package: rsrb-core
+Version: 1.0.0
+Architecture: all
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-release, rsrb-neofetch, openssh-server, mdadm, smartmontools, hdparm, nfs-kernel-server, samba
+Recommends: wsdd, avahi-daemon
+Section: metapackages
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Core – barebone NAS (metapackage)
+ SSH, SMB and NFS shares, software RAID and disk health – nothing else running. No web UI.

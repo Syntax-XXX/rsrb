@@ -3,6 +3,6 @@ set -e
 if [ "$1" = configure ]; then
   depmod -a @KVER@
   if [ "$(uname -r)" != @KVER@ ]; then
-    echo "RSRB kernel @KVER@ installed. To activate it: rsrb-flash-kernel && reboot" >&2
+    echo "RSRB @FLAVOR@ kernel @KVER@ installed. To activate it: rsrb-flash-kernel @KVER@ && reboot" >&2
   fi
 fi

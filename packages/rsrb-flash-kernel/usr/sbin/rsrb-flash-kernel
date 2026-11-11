@@ -1,11 +1,22 @@
 #!/bin/sh
-# rsrb-flash-kernel [-y] [VERSION] – write an installed RSRB kernel to the RS812 SPI flash (mtd1).
+# rsrb-flash-kernel [-y] [VERSION]   e.g. 6.1.176-rsrb or 6.1.176-rsrb-full – write an installed RSRB kernel to the RS812 SPI flash (mtd1).
 # U-Boot (mtd0) is never written. The image is verified by reading it back.
 set -eu
 K=/usr/lib/rsrb/kernel
 die() { echo "rsrb-flash-kernel: $*" >&2; exit 1; }
 yes=; [ "${1:-}" = -y ] && { yes=1; shift; }
-V=${1:-$(ls "$K" 2>/dev/null | sed -n 's/^uImage-//p' | sort -V | tail -1)}
+if [ -n "${1:-}" ]; then V=$1
+else
+  # never guess between flavors: with several kernels installed the user has to name one
+  set -- $(ls "$K" 2>/dev/null | sed -n 's/^uImage-//p' | sort -V)
+  [ $# -gt 0 ] || die "no RSRB kernel installed"
+  if [ $# -gt 1 ]; then
+    echo "Several RSRB kernels are installed – pick one:" >&2
+    for k in "$@"; do echo "  rsrb-flash-kernel $k$([ "$k" = "$(uname -r)" ] && echo '   (running)')" >&2; done
+    exit 2
+  fi
+  V=$1
+fi
 IMG=$K/uImage-$V
 [ "$(id -u)" = 0 ] || die "run as root"
 [ -n "$V" ] && [ -f "$IMG" ] || die "no kernel image found ($IMG)"

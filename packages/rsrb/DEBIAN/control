@@ -1,11 +1,10 @@
 Package: rsrb
-Version: 1.0.0
+Version: 2.0.0
 Architecture: all
 Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
-Depends: rsrb-release, rsrb-neofetch, rackpanel
+Depends: rsrb-full
 Section: metapackages
 Priority: optional
 Homepage: https://github.com/Syntax-XXX/rsrb
-Description: RSRB base system (metapackage)
- RackStation ReBoot on any Debian 12: system identity, neofetch preset and
- the RackPanel web UI. On a Synology RS812 install rsrb-rs812 instead.
+Description: RSRB – everything (metapackage)
+ Shortcut for rsrb-full.

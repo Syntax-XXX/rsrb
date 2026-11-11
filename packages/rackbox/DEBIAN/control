@@ -1,0 +1,15 @@
+Package: rackbox
+Version: @VERSION@
+Architecture: @ARCH@
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: systemd-container
+Suggests: rackpanel
+Section: admin
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rackpanel
+Installed-Size: @SIZE@
+Description: Docker images without a daemon
+ RackBox pulls OCI/Docker images for this CPU (ARMv5 included), unpacks them
+ into plain folders and runs every container as its own systemd service via
+ systemd-nspawn – no daemon, no overlayfs. Includes an app catalog and the
+ "Containers" page for RackPanel.

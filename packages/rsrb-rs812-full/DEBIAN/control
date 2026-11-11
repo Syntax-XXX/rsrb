@@ -1,0 +1,10 @@
+Package: rsrb-rs812-full
+Version: 1.0.0
+Architecture: armel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-full, rsrb-rs812-core, linux-image-rsrb-full
+Section: metapackages
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Full for the Synology RS812 (metapackage)
+ Everything on the RS812: full kernel (memory limits, firewall/NAT, WireGuard), RackPanel and RackBox.

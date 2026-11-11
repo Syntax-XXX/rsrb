@@ -1,0 +1,13 @@
+[Unit]
+Description=File Browser web file manager
+After=network-online.target local-fs.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=-/etc/default/filebrowser
+ExecStart=/usr/bin/filebrowser --database /var/lib/filebrowser/filebrowser.db $FILEBROWSER_OPTS
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

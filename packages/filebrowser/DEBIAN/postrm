@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+[ "$1" = purge ] && rm -rf /var/lib/filebrowser /etc/default/filebrowser
+systemctl daemon-reload >/dev/null 2>&1 || true

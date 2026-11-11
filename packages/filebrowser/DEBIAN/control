@@ -1,0 +1,12 @@
+Package: filebrowser
+Version: @VERSION@
+Architecture: @ARCH@
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Section: web
+Priority: optional
+Homepage: https://filebrowser.org
+Installed-Size: @SIZE@
+Description: web file manager (File Browser, packaged for RSRB)
+ Browse, upload, edit and share files on your NAS from any browser.
+ Runs on port 8085 with /volume1 (or /srv) as its root; the first admin
+ password is generated during installation.

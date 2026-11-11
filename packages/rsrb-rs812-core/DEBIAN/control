@@ -1,0 +1,10 @@
+Package: rsrb-rs812-core
+Version: 1.0.0
+Architecture: armel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-core, rsrb-rs812-hw, linux-image-rsrb | linux-image-rsrb-full
+Section: metapackages
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Core for the Synology RS812 (metapackage)
+ Barebone NAS on the RS812: RSRB core kernel, fan control, SSH, SMB, NFS.

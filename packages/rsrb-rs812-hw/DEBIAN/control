@@ -1,0 +1,13 @@
+Package: rsrb-rs812-hw
+Version: 2.0.0
+Architecture: armel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: smartmontools, hdparm
+Replaces: rsrb-rs812 (<< 2.0.0)
+Breaks: rsrb-rs812 (<< 2.0.0)
+Section: admin
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: Synology RS812 hardware support for RSRB
+ Fan control by disk temperature (rs812-fan.service; sleeping disks are not
+ woken) and the hardware modules (gpio-fan, RTC).

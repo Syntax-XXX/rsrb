@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Builds all packages and the signed APT repository into docs/ (served by GitHub Pages / Cloudflare Pages).
 #   ./build.sh                 RackPanel from the latest GitHub release
-#   RP_DIST=../rackpanel/dist RP_VERSION=1.1.0 ./build.sh   from a local build
+#   RP_DIST=../rackpanel/dist RP_VERSION=1.2.0 ./build.sh   from a local build
 # Signing key: GNUPGHOME (default /root/rsrb-apt/gnupg) – never commit it.
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -27,24 +27,55 @@ for pair in armel:armv5 armhf:armv7 arm64:arm64 amd64:amd64; do
   sed -i "s/@VERSION@/$RP_VERSION/; s/@ARCH@/$deb/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r/DEBIAN/control"
   dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/rackpanel_${RP_VERSION}_$deb.deb" >/dev/null
 done
-# RSRB kernel (armel, RS812): versioned package + linux-image-rsrb metapackage
-KOUT=${KERNEL_OUT:-/root/rs812-debian/kernel/build/out-flash}
-if [ -f "$KOUT/uImage" ] && [ -f "$KOUT/spi-nor-unlock.ko" ]; then
-  KVER=$(ls "$KOUT/modules/lib/modules"); KPKG=${KVER%-rsrb}-${KERNEL_REV:-1}
-  r="$work/linux-image"; cp -r packages/linux-image "$r"
+# RSRB kernels (armel, RS812): per flavor a versioned package + a linux-image-<flavor> metapackage
+KB=${KERNEL_BUILD:-/root/rs812-debian/kernel/build}
+built=0
+for fl in "out-flash:rsrb:core:Only what a NAS needs is built in." \
+          "out-full:rsrb-full:full:Adds memory limits (memory cgroup), netfilter/NAT, WireGuard, IPv6, NTFS3 and CIFS."; do
+  IFS=: read -r od meta flavor fdesc <<<"$fl"
+  KOUT=$KB/$od
+  [ -f "$KOUT/uImage" ] && [ -f "$KOUT/spi-nor-unlock.ko" ] || continue
+  KVER=$(ls "$KOUT/modules/lib/modules"); KPKG=6.1.176-${KERNEL_REV:-2}
+  r="$work/linux-image-$flavor"; cp -r packages/linux-image "$r"
   mkdir -p "$r/usr/lib/modules" "$r/usr/lib/rsrb/kernel"
   cp -a "$KOUT/modules/lib/modules/$KVER" "$r/usr/lib/modules/" && rm -f "$r/usr/lib/modules/$KVER/build" "$r/usr/lib/modules/$KVER/source"
   cp "$KOUT/uImage" "$r/usr/lib/rsrb/kernel/uImage-$KVER"
   cp "$KOUT/spi-nor-unlock.ko" "$r/usr/lib/rsrb/kernel/spi-nor-unlock-$KVER.ko"
-  sed -i "s/@KVER@/$KVER/g; s/@PKGVER@/$KPKG/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r"/DEBIAN/*
+  sed -i "s/@KVER@/$KVER/g; s/@PKGVER@/$KPKG/; s/@FLAVOR@/$flavor/g; s|@FLAVORDESC@|$fdesc|; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r"/DEBIAN/*
   dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/linux-image-${KVER}_${KPKG}_armel.deb" >/dev/null
-  m="$work/linux-image-rsrb"; cp -r packages/linux-image-rsrb "$m"; sed -i "s/@KVER@/$KVER/; s/@PKGVER@/$KPKG/" "$m/DEBIAN/control"
-  dpkg-deb --root-owner-group --build "$m" "$POOL/linux-image-rsrb_${KPKG}_armel.deb" >/dev/null
-else
-  cp "$work/keep"/*.deb "$POOL/" 2>/dev/null || echo "note: no kernel build at $KOUT and no published kernel packages" >&2
-fi
+  m="$work/meta-$flavor"; cp -r packages/linux-image-rsrb "$m"
+  sed -i "s/@META@/$meta/; s/@KVER@/$KVER/; s/@PKGVER@/$KPKG/; s/@FLAVOR@/$flavor/g" "$m/DEBIAN/control"
+  dpkg-deb --root-owner-group --build "$m" "$POOL/linux-image-${meta}_${KPKG}_armel.deb" >/dev/null
+  built=1
+done
+[ $built = 1 ] || cp "$work/keep"/*.deb "$POOL/" 2>/dev/null || echo "note: no kernel build in $KB and no published kernel packages" >&2
 
-for p in rsrb rsrb-rs812 rsrb-neofetch rsrb-release; do
+# rackbox: from the rackpanel release (same archives layout as rackpanel)
+RB_VERSION=${RB_VERSION:-0.1.0}
+for pair in armel:armv5 armhf:armv7 arm64:arm64 amd64:amd64; do
+  deb=${pair%%:*} tar=${pair##*:}
+  r="$work/rackbox-$deb"; mkdir -p "$r/usr/bin" "$r/usr/share/rackpanel/addons"
+  if [ -n "${RP_DIST:-}" ]; then cp "$RP_DIST/rackbox-linux-$tar.tar.gz" "$work/rb.tgz"
+  else curl -fsSL -o "$work/rb.tgz" "https://github.com/$REPO/releases/download/v$RP_VERSION/rackbox-linux-$tar.tar.gz"; fi
+  rm -rf "$work/rbx" && mkdir "$work/rbx" && tar -xzf "$work/rb.tgz" -C "$work/rbx"
+  mv "$work/rbx/rackbox" "$r/usr/bin/" && mv "$work/rbx/addon" "$r/usr/share/rackpanel/addons/rackbox"
+  cp -r packages/rackbox/. "$r/"
+  sed -i "s/@VERSION@/$RB_VERSION/; s/@ARCH@/$deb/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r/DEBIAN/control"
+  dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/rackbox_${RB_VERSION}_$deb.deb" >/dev/null
+done
+
+# apps packaged from upstream release binaries
+FB_VERSION=${FB_VERSION:-$(curl -fsSL https://api.github.com/repos/filebrowser/filebrowser/releases/latest | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -1)}
+for pair in armel:armv5 armhf:armv7 arm64:arm64 amd64:amd64; do
+  deb=${pair%%:*} up=${pair##*:}
+  r="$work/filebrowser-$deb"; mkdir -p "$r/usr/bin"
+  curl -fsSL "https://github.com/filebrowser/filebrowser/releases/download/v$FB_VERSION/linux-$up-filebrowser.tar.gz" | tar -xz -C "$r/usr/bin" filebrowser
+  cp -r packages/filebrowser/. "$r/"
+  sed -i "s/@VERSION@/$FB_VERSION-1/; s/@ARCH@/$deb/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r/DEBIAN/control"
+  dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/filebrowser_${FB_VERSION}-1_$deb.deb" >/dev/null
+done
+
+for p in rsrb-flash-kernel rsrb rsrb-core rsrb-full rsrb-rs812 rsrb-rs812-core rsrb-rs812-full rsrb-rs812-hw rsrb-neofetch rsrb-release; do
   v=$(sed -n 's/^Version: //p' packages/$p/DEBIAN/control)
   a=$(sed -n 's/^Architecture: //p' packages/$p/DEBIAN/control)
   dpkg-deb --root-owner-group -Zxz --build packages/$p "$POOL/${p}_${v}_$a.deb" >/dev/null

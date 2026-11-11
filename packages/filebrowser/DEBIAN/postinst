@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+if [ "$1" = configure ]; then
+  mkdir -p /var/lib/filebrowser && chmod 700 /var/lib/filebrowser
+  if [ ! -f /etc/default/filebrowser ]; then
+    root=/srv; [ -d /volume1 ] && root=/volume1
+    printf '# File Browser options (filebrowser --help)\nFILEBROWSER_OPTS="--address 0.0.0.0 --port 8085 --root %s"\n' "$root" > /etc/default/filebrowser
+  fi
+  db=/var/lib/filebrowser/filebrowser.db
+  if [ ! -f "$db" ]; then
+    pw=$(head -c 24 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 16)
+    filebrowser config init --database "$db" >/dev/null
+    filebrowser users add admin "$pw" --perm.admin --database "$db" >/dev/null
+    printf 'File Browser: sign in as admin with password %s (change it under Settings)\n' "$pw"
+  fi
+  systemctl daemon-reload >/dev/null 2>&1 || true
+  systemctl enable filebrowser.service >/dev/null 2>&1 || true
+  systemctl restart filebrowser.service || true
+fi

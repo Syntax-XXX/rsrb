@@ -35,6 +35,10 @@ button.copy:hover { background:rgba(255,255,255,.12); }
 .pkg:first-of-type { border-top:0; }
 .pkg b { color:var(--text); font-family:ui-monospace, Menlo, monospace; }
 .pkg p { margin:2px 0 0; font-size:14px; }
+.flav { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:10px 0 4px; }
+.flav div { border:1px solid var(--line); border-radius:14px; padding:12px 14px; background:rgba(255,255,255,.03); font-size:14px; color:var(--muted); }
+.flav b { display:block; color:var(--text); font-size:15px; margin-bottom:2px; background:linear-gradient(135deg,var(--a),var(--b)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+@media (max-width:760px) { .flav { grid-template-columns:1fr; } }
 .tag { display:inline-block; font-size:11px; padding:1px 7px; border-radius:99px; background:rgba(94,234,212,.12); color:var(--a); margin-left:6px; font-family:ui-monospace, Menlo, monospace; }
 a { color:var(--a); }
 .btn { display:inline-block; padding:9px 16px; border-radius:12px; text-decoration:none; font-weight:600; margin:4px 8px 0 0; }
@@ -67,8 +71,8 @@ footer { margin-top:28px; text-align:center; font-size:13px; color:var(--muted);
  ╚═╝  ╚═╝╚═════╝</span></pre>
     <div style="flex:1;min-width:240px">
       <h1><span>RSRB</span> · RackStation ReBoot</h1>
-      <p data-l="en">Debian 12 instead of DSM on the Synology RS812 – with its own kernel, a web UI and this package repository.</p>
-      <p data-l="de">Debian 12 statt DSM auf der Synology RS812 – mit eigenem Kernel, Weboberfläche und dieser Paketquelle.</p>
+      <p data-l="en">Debian 12 instead of DSM on the Synology RS812 – with its own kernel, a web UI, daemonless containers and this package repository.</p>
+      <p data-l="de">Debian 12 statt DSM auf der Synology RS812 – mit eigenem Kernel, Weboberfläche, Containern ohne Daemon und dieser Paketquelle.</p>
       <a class="btn p" href="https://github.com/Syntax-XXX/rs812-debian"><span data-l="en">Install the OS</span><span data-l="de">OS installieren</span></a>
       <a class="btn s" href="https://github.com/Syntax-XXX/rackpanel">RackPanel</a>
       <a class="btn s" href="https://github.com/Syntax-XXX/rsrb">GitHub</a>
@@ -80,12 +84,18 @@ footer { margin-top:28px; text-align:center; font-size:13px; color:var(--muted);
       <h2 data-l="en">1 · Add the repository</h2><h2 data-l="de">1 · Paketquelle einrichten</h2>
       <div class="cmd"><span>curl -fsSL https://syntax-xxx.github.io/rsrb/setup.sh | sudo sh</span><button class="copy">Copy</button></div>
       <h2 data-l="en" style="margin-top:18px">2 · Install packages</h2><h2 data-l="de" style="margin-top:18px">2 · Pakete installieren</h2>
-      <p data-l="en" style="margin:10px 0 0">On a Synology RS812 – the complete system (kernel, fan control, RackPanel, branding):</p>
-      <p data-l="de" style="margin:10px 0 0">Auf einer Synology RS812 – das komplette System (Kernel, Lüftersteuerung, RackPanel, Branding):</p>
-      <div class="cmd"><span>sudo apt install rsrb-rs812</span><button class="copy">Copy</button></div>
-      <p data-l="en" style="margin:10px 0 0">On any other Debian/Ubuntu (armhf, arm64, amd64 …):</p>
-      <p data-l="de" style="margin:10px 0 0">Auf jedem anderen Debian/Ubuntu (armhf, arm64, amd64 …):</p>
-      <div class="cmd"><span>sudo apt install rsrb</span><button class="copy">Copy</button></div>
+      <div class="flav">
+        <div><b>Core</b><span data-l="en">Barebone NAS: SSH, SMB, NFS, RAID, SMART – no web UI, nothing else running.</span><span data-l="de">Barebone-NAS: SSH, SMB, NFS, RAID, SMART – keine Weboberfläche, sonst läuft nichts.</span></div>
+        <div><b>Full</b><span data-l="en">Core + RackPanel web UI, RackBox containers, full kernel (memory limits, firewall/NAT, WireGuard).</span><span data-l="de">Core + RackPanel-Weboberfläche, RackBox-Container, Full-Kernel (Speicherlimits, Firewall/NAT, WireGuard).</span></div>
+      </div>
+      <p data-l="en" style="margin:10px 0 0">On a Synology RS812 (kernel and fan control included):</p>
+      <p data-l="de" style="margin:10px 0 0">Auf einer Synology RS812 (mit Kernel und Lüftersteuerung):</p>
+      <div class="cmd"><span>sudo apt install rsrb-rs812-full</span><button class="copy">Copy</button></div>
+      <div class="cmd"><span>sudo apt install rsrb-rs812-core</span><button class="copy">Copy</button></div>
+      <p data-l="en" style="margin:10px 0 0">On any other Debian/Ubuntu – or just the web UI:</p>
+      <p data-l="de" style="margin:10px 0 0">Auf jedem anderen Debian/Ubuntu – oder nur die Weboberfläche:</p>
+      <div class="cmd"><span>sudo apt install rsrb-full</span><button class="copy">Copy</button></div>
+      <div class="cmd"><span>sudo apt install rackpanel rackbox</span><button class="copy">Copy</button></div>
       <p data-l="en">Updates arrive with <code>apt upgrade</code>. A new kernel is never flashed automatically – run <code>rsrb-flash-kernel</code> and reboot.</p>
       <p data-l="de">Updates kommen mit <code>apt upgrade</code>. Ein neuer Kernel wird nie automatisch geflasht – dafür <code>rsrb-flash-kernel</code> und Neustart.</p>
     </section>

@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+if [ "$1" = configure ]; then
+  # earlier installs had the fan control as loose files
+  if grep -qs /usr/local/sbin/rs812-fan /etc/systemd/system/rs812-fan.service; then
+    rm -f /etc/systemd/system/rs812-fan.service /usr/local/sbin/rs812-fan
+  fi
+  systemctl daemon-reload >/dev/null 2>&1 || true
+  systemctl enable rs812-fan.service >/dev/null 2>&1 || true
+  if [ -n "$2" ] || systemctl is-active -q rs812-fan.service; then systemctl restart rs812-fan.service || true
+  else systemctl start rs812-fan.service || true; fi
+fi

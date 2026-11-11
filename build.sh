@@ -12,6 +12,8 @@ work=$(mktemp -d); trap 'rm -rf "$work"' EXIT
 
 RP_VERSION=${RP_VERSION:-$(curl -fsSL https://api.github.com/repos/$REPO/releases/latest | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -1)}
 [ -n "$RP_VERSION" ] || { echo "RackPanel version unknown" >&2; exit 1; }
+# kernel packages can only be built where the kernel was built; elsewhere keep the published ones
+mkdir -p "$work/keep"; [ -d "$POOL" ] && cp "$POOL"/linux-image-*.deb "$work/keep/" 2>/dev/null || true
 rm -rf "$POOL" "$OUT/dists" && mkdir -p "$POOL"
 
 # rackpanel: one package per architecture (Debian arch name / release archive name)
@@ -25,9 +27,27 @@ for pair in armel:armv5 armhf:armv7 arm64:arm64 amd64:amd64; do
   sed -i "s/@VERSION@/$RP_VERSION/; s/@ARCH@/$deb/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r/DEBIAN/control"
   dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/rackpanel_${RP_VERSION}_$deb.deb" >/dev/null
 done
-for p in rsrb-neofetch rsrb-release; do
+# RSRB kernel (armel, RS812): versioned package + linux-image-rsrb metapackage
+KOUT=${KERNEL_OUT:-/root/rs812-debian/kernel/build/out-flash}
+if [ -f "$KOUT/uImage" ] && [ -f "$KOUT/spi-nor-unlock.ko" ]; then
+  KVER=$(ls "$KOUT/modules/lib/modules"); KPKG=${KVER%-rsrb}-${KERNEL_REV:-1}
+  r="$work/linux-image"; cp -r packages/linux-image "$r"
+  mkdir -p "$r/usr/lib/modules" "$r/usr/lib/rsrb/kernel"
+  cp -a "$KOUT/modules/lib/modules/$KVER" "$r/usr/lib/modules/" && rm -f "$r/usr/lib/modules/$KVER/build" "$r/usr/lib/modules/$KVER/source"
+  cp "$KOUT/uImage" "$r/usr/lib/rsrb/kernel/uImage-$KVER"
+  cp "$KOUT/spi-nor-unlock.ko" "$r/usr/lib/rsrb/kernel/spi-nor-unlock-$KVER.ko"
+  sed -i "s/@KVER@/$KVER/g; s/@PKGVER@/$KPKG/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r"/DEBIAN/*
+  dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/linux-image-${KVER}_${KPKG}_armel.deb" >/dev/null
+  m="$work/linux-image-rsrb"; cp -r packages/linux-image-rsrb "$m"; sed -i "s/@KVER@/$KVER/; s/@PKGVER@/$KPKG/" "$m/DEBIAN/control"
+  dpkg-deb --root-owner-group --build "$m" "$POOL/linux-image-rsrb_${KPKG}_armel.deb" >/dev/null
+else
+  cp "$work/keep"/*.deb "$POOL/" 2>/dev/null || echo "note: no kernel build at $KOUT and no published kernel packages" >&2
+fi
+
+for p in rsrb rsrb-rs812 rsrb-neofetch rsrb-release; do
   v=$(sed -n 's/^Version: //p' packages/$p/DEBIAN/control)
-  dpkg-deb --root-owner-group -Zxz --build packages/$p "$POOL/${p}_${v}_all.deb" >/dev/null
+  a=$(sed -n 's/^Architecture: //p' packages/$p/DEBIAN/control)
+  dpkg-deb --root-owner-group -Zxz --build packages/$p "$POOL/${p}_${v}_$a.deb" >/dev/null
 done
 
 # index + signed Release

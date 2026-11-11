@@ -1,0 +1,11 @@
+Package: linux-image-rsrb
+Version: @PKGVER@
+Architecture: armel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: linux-image-@KVER@
+Section: kernel
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: latest RSRB kernel for the Synology RS812 (metapackage)
+ Always depends on the newest RSRB kernel package. Activate a new kernel
+ with rsrb-flash-kernel and a reboot.

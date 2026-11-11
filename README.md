@@ -31,7 +31,8 @@ Website: **https://syntax-xxx.github.io/rsrb/**
 
 ```sh
 curl -fsSL https://syntax-xxx.github.io/rsrb/setup.sh | sudo sh
-sudo apt install rackpanel rsrb-neofetch rsrb-release
+sudo apt install rsrb-rs812   # on a Synology RS812: complete system
+sudo apt install rsrb         # on any other Debian/Ubuntu
 ```
 
 Or by hand:
@@ -48,6 +49,9 @@ Signing key: `C967 9F05 04B2 68FE BE8D 73C7 67C5 9D95 3A7E DE6A`
 
 | Package | Architectures | Contents |
 |---|---|---|
+| `rsrb-rs812` | armel | **complete RSRB system for the RS812**: depends on the kernel, `rsrb` and RS812 hardware support (fan control `rs812-fan.service`, gpio-fan/RTC modules). |
+| `rsrb` | all | base system on any Debian: `rsrb-release`, `rsrb-neofetch`, `rackpanel`. |
+| `linux-image-rsrb` | armel | always the newest RSRB kernel (`linux-image-6.1.176-rsrb`: modules + uImage). The flash is only written by `rsrb-flash-kernel` (asks, verifies by reading back, never touches U-Boot). |
 | `rackpanel` | armel, armhf, arm64, amd64 | NAS web UI. Asks for user, password and port (debconf); `dpkg-reconfigure rackpanel` changes them. |
 | `rsrb-neofetch` | all | neofetch preset with the RSRB logo and NAS info; `rsrbfetch` command. Your own `~/.config/neofetch/config.conf` still wins. |
 | `rsrb-release` | all | system identity: `/etc/os-release` (`ID=rsrb`, `ID_LIKE=debian`, version stays 12/bookworm), console banner, login message. Uses `dpkg-divert`; removing the package restores Debian's files. |

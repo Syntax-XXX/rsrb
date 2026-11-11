@@ -1,0 +1,12 @@
+Package: rsrb-rs812
+Version: 1.0.0
+Architecture: armel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb, linux-image-rsrb, smartmontools, hdparm, mdadm
+Section: admin
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: RSRB for the Synology RS812 – complete system
+ Everything RSRB needs on the RS812: the RSRB kernel, fan control by disk
+ temperature (rs812-fan.service), the hardware modules (gpio-fan, RTC)
+ and the RSRB base system with RackPanel.

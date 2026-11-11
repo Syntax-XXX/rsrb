@@ -17,7 +17,7 @@ body { margin:0; background:var(--bg); color:var(--text); font:15.5px/1.6 ui-san
 .wrap { max-width:980px; margin:0 auto; padding:40px 16px 60px; }
 .glass { background:var(--glass); border:1px solid var(--line); border-radius:22px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); }
 header { display:flex; gap:28px; align-items:center; padding:28px; flex-wrap:wrap; }
-pre.logo { margin:0; font:700 11px/1.1 ui-monospace, "DejaVu Sans Mono", Menlo, monospace; }
+pre.logo { margin:0; font:700 12px/1 "DejaVu Sans Mono", ui-monospace, Menlo, Consolas, monospace; }
 .logo .a { color:var(--a); } .logo .b { color:var(--b); }
 h1 { margin:0 0 6px; font-size:34px; letter-spacing:-.5px; }
 h1 span { background:linear-gradient(135deg,var(--a),var(--b)); -webkit-background-clip:text; background-clip:text; color:transparent; }
@@ -27,13 +27,15 @@ p { margin:0 0 10px; color:var(--muted); }
 .card { padding:24px; min-width:0; }
 .wide { grid-column:1/-1; }
 code, .cmd { font:13.5px/1.5 ui-monospace, "DejaVu Sans Mono", Menlo, monospace; }
-.cmd { display:flex; gap:10px; align-items:center; background:rgba(0,0,0,.35); border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin:8px 0; overflow-x:auto; white-space:nowrap; }
-.cmd span { flex:1; } .cmd span::before { content:"$ "; color:var(--a); }
+.cmd { display:flex; gap:10px; align-items:center; background:rgba(0,0,0,.35); border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin:8px 0; }
+.cmd span { flex:1; min-width:0; overflow-x:auto; white-space:nowrap; scrollbar-width:thin; } .cmd span::before { content:"$ "; color:var(--a); }
 button.copy { flex:none; background:var(--glass); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:4px 10px; font:inherit; font-size:12px; cursor:pointer; }
 button.copy:hover { background:rgba(255,255,255,.12); }
 .pkg { display:flex; gap:14px; padding:12px 0; border-top:1px solid var(--line); }
 .pkg:first-of-type { border-top:0; }
 .pkg b { color:var(--text); font-family:ui-monospace, Menlo, monospace; }
+.pkg p { margin:2px 0 0; font-size:14px; }
+.tag { display:inline-block; font-size:11px; padding:1px 7px; border-radius:99px; background:rgba(94,234,212,.12); color:var(--a); margin-left:6px; font-family:ui-monospace, Menlo, monospace; }
 a { color:var(--a); }
 .btn { display:inline-block; padding:9px 16px; border-radius:12px; text-decoration:none; font-weight:600; margin:4px 8px 0 0; }
 .btn.p { background:linear-gradient(135deg,var(--a),var(--b)); color:#0b1020; }
@@ -78,22 +80,20 @@ footer { margin-top:28px; text-align:center; font-size:13px; color:var(--muted);
       <h2 data-l="en">1 · Add the repository</h2><h2 data-l="de">1 · Paketquelle einrichten</h2>
       <div class="cmd"><span>curl -fsSL https://syntax-xxx.github.io/rsrb/setup.sh | sudo sh</span><button class="copy">Copy</button></div>
       <h2 data-l="en" style="margin-top:18px">2 · Install packages</h2><h2 data-l="de" style="margin-top:18px">2 · Pakete installieren</h2>
-      <div class="cmd"><span>sudo apt install rackpanel rsrb-neofetch rsrb-release</span><button class="copy">Copy</button></div>
-      <p data-l="en">Works on any Debian/Ubuntu with systemd: armel (RS812), armhf, arm64 and amd64. Updates arrive with <code>apt upgrade</code>.</p>
-      <p data-l="de">Läuft auf jedem Debian/Ubuntu mit systemd: armel (RS812), armhf, arm64 und amd64. Updates kommen mit <code>apt upgrade</code>.</p>
+      <p data-l="en" style="margin:10px 0 0">On a Synology RS812 – the complete system (kernel, fan control, RackPanel, branding):</p>
+      <p data-l="de" style="margin:10px 0 0">Auf einer Synology RS812 – das komplette System (Kernel, Lüftersteuerung, RackPanel, Branding):</p>
+      <div class="cmd"><span>sudo apt install rsrb-rs812</span><button class="copy">Copy</button></div>
+      <p data-l="en" style="margin:10px 0 0">On any other Debian/Ubuntu (armhf, arm64, amd64 …):</p>
+      <p data-l="de" style="margin:10px 0 0">Auf jedem anderen Debian/Ubuntu (armhf, arm64, amd64 …):</p>
+      <div class="cmd"><span>sudo apt install rsrb</span><button class="copy">Copy</button></div>
+      <p data-l="en">Updates arrive with <code>apt upgrade</code>. A new kernel is never flashed automatically – run <code>rsrb-flash-kernel</code> and reboot.</p>
+      <p data-l="de">Updates kommen mit <code>apt upgrade</code>. Ein neuer Kernel wird nie automatisch geflasht – dafür <code>rsrb-flash-kernel</code> und Neustart.</p>
     </section>
 
     <section class="card glass">
       <h2 data-l="en">Packages</h2><h2 data-l="de">Pakete</h2>
-      <div class="pkg"><div><b>rackpanel</b>
-        <p data-l="en">The NAS web UI: storage, SMART, RAID, files, SMB/NFS shares, users, apps, updates, API. Asks for user and password during install.</p>
-        <p data-l="de">Die NAS-Weboberfläche: Speicher, SMART, RAID, Dateien, SMB/NFS-Freigaben, Benutzer, Apps, Updates, API. Fragt bei der Installation nach Benutzer und Passwort.</p></div></div>
-      <div class="pkg"><div><b>rsrb-neofetch</b>
-        <p data-l="en">neofetch with the RSRB logo and NAS info (volumes, IP, web UI). Also adds <code>rsrbfetch</code>.</p>
-        <p data-l="de">neofetch mit RSRB-Logo und NAS-Infos (Volumes, IP, Weboberfläche). Dazu der Befehl <code>rsrbfetch</code>.</p></div></div>
-      <div class="pkg"><div><b>rsrb-release</b>
-        <p data-l="en">Brands the system as RSRB (os-release, login banner, login message). Debian's files come back when you remove it.</p>
-        <p data-l="de">Macht das System zu RSRB (os-release, Anmeldebanner, Login-Meldung). Beim Entfernen kommen Debians Dateien zurück.</p></div></div>
+      <div data-pkgs><p>…</p></div>
+      <p style="font-size:13px;margin-top:8px"><span data-l="en">Read live from the repository index.</span><span data-l="de">Live aus dem Paketindex gelesen.</span></p>
     </section>
 
     <section class="card glass">
@@ -112,6 +112,23 @@ const setLang = (l) => { document.documentElement.lang = l; document.querySelect
 let saved = null; try { saved = localStorage.getItem('lang'); } catch {}
 setLang(saved || ((navigator.language || '').startsWith('de') ? 'de' : 'en'));
 document.querySelectorAll('[data-set]').forEach((b) => (b.onclick = () => setLang(b.dataset.set)));
+// package list straight from the APT index (all architectures merged)
+(async () => {
+  const box = document.querySelector('[data-pkgs]'), pk = new Map();
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  try {
+    for (const a of ['armel', 'armhf', 'arm64', 'amd64']) {
+      const t = await (await fetch(`dists/stable/main/binary-${a}/Packages`)).text();
+      for (const blk of t.split(/\n\n+/)) {
+        const f = Object.fromEntries(blk.split('\n').filter((l) => /^[A-Z][\w-]*: /.test(l)).map((l) => [l.slice(0, l.indexOf(':')), l.slice(l.indexOf(':') + 2)]));
+        if (!f.Package) continue;
+        const e = pk.get(f.Package) || { v: f.Version, d: f.Description, arch: new Set() };
+        e.arch.add(f.Architecture); pk.set(f.Package, e);
+      }
+    }
+    box.innerHTML = [...pk].sort().map(([n, e]) => `<div class="pkg"><div><b>${esc(n)}</b><span class="tag">${esc(e.v)}</span><span class="tag">${esc([...e.arch].join(' '))}</span><p>${esc(e.d)}</p></div></div>`).join('');
+  } catch { box.innerHTML = '<p>rackpanel · rsrb · rsrb-rs812 · rsrb-neofetch · rsrb-release · linux-image-rsrb</p>'; }
+})();
 document.querySelectorAll('button.copy').forEach((b) => (b.onclick = () => {
   navigator.clipboard?.writeText(b.previousElementSibling.textContent).then(() => { b.textContent = '✓'; setTimeout(() => (b.textContent = 'Copy'), 1500); });
 }));

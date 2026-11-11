@@ -1,0 +1,14 @@
+Package: linux-image-@KVER@
+Version: @PKGVER@
+Architecture: armel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: kmod, mtd-utils
+Provides: linux-image
+Section: kernel
+Priority: optional
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Installed-Size: @SIZE@
+Description: RSRB kernel @KVER@ for the Synology RS812
+ Linux @KVER@ with the RS812 device tree, built to fit the 2 MiB kernel
+ slot of the internal SPI flash. Installs the modules and the uImage;
+ the flash is only written when you run rsrb-flash-kernel.

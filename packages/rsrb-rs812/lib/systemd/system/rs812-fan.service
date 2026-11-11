@@ -1,0 +1,11 @@
+[Unit]
+Description=RS812 fan control by disk temperature
+After=local-fs.target
+
+[Service]
+ExecStart=/usr/sbin/rs812-fan
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

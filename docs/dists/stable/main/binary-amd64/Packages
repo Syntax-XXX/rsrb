@@ -9,11 +9,11 @@ Depends: debconf (>= 0.5) | debconf-2.0
 Recommends: smartmontools, hdparm
 Suggests: samba, wsdd, nfs-kernel-server
 Filename: pool/main/rackpanel_1.1.0_amd64.deb
-Size: 2034020
-MD5sum: ff158540a3c7caf4509681e08748a876
-SHA1: ea5a2e55a58e90febd90c708b1507900d77e582f
-SHA256: a42ffcea3db8e1ab398184ca827420ca921ce540b45c129a7995ffc1c788e1ac
-SHA512: 71dea6be984342450ed66c86c0c064a7a8a6d66b2ca18a751b8b0fb5d997a6d27a4bf865bf9d1ccabbc6e2e78549180f9b2caabaec026ce99d994d0af054f90d
+Size: 2034544
+MD5sum: 12f5ad4bb346756ddd26060c4ba4b1a5
+SHA1: ced9c1530b0e7a2c5d3e8112ff3b0c59a2f816b5
+SHA256: cf6a6310e9502adf5512e034f3d908a5ded9d047466f3550049724d026d650cc
+SHA512: 2345b8b9f5575a7a894a6979c7ad57e96a97b2e0cdf811fb127f117d3d3ad40c1d6293eedb47d00b9c5d13efe53446cd97a08248ed2a10a0f53d39496380f9be
 Homepage: https://github.com/Syntax-XXX/rackpanel
 Description: lightweight NAS web UI (DSM replacement)
  Storage, SMART, RAID, files, SMB/NFS shares, users, apps, services,
@@ -29,10 +29,10 @@ Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
 Depends: neofetch
 Filename: pool/main/rsrb-neofetch_1.0.1_all.deb
 Size: 2060
-MD5sum: 1c67efa5d0753141cdd08bc1d0f04b90
-SHA1: 0322061426f7087d45cf4a78945bd48fceac286a
-SHA256: 6afce1d0e30023e497b62ec38455a635028b4cb9e9dc7935d3df4eaaeb643859
-SHA512: 63fcc7289713c189ffac393380eea5ff47bb8d67a6f906c02679ac188b931214c577986013d8e1d505bda3bfc3195dd3c86617bfb20365f921e160d4bc3c603d
+MD5sum: 16d78f89015e0f93522a294aca81c30f
+SHA1: 6ad3a3e756a91315109a3957a36c71347edd5762
+SHA256: 6fb55fe88d679d015a2b40f623ec64a7045f5af0f908ef4a0dbe92f88fd031f3
+SHA512: 42d1342c89f700803e8002984053c10493d1e59777c6a59556ef83847588137e97dac736dd7ba034a955108ce213240ef8349fd603103d14da66ecd74aef2074
 Homepage: https://github.com/Syntax-XXX/rsrb
 Description: RSRB neofetch preset (RackStation ReBoot logo)
  Makes neofetch show the RSRB logo and NAS-relevant info (volumes,
@@ -49,10 +49,10 @@ Depends: base-files
 Recommends: rsrb-neofetch
 Filename: pool/main/rsrb-release_1.0.1_all.deb
 Size: 1856
-MD5sum: 27f480164885f6185345292b7a5ded63
-SHA1: ce2fb6e1efa137e7f95f5f1ea8f87e3532301d75
-SHA256: 26c7326dfdc24e5db23b22e2318540a609d4bac85c6f62f17e1ce1ba68147e9c
-SHA512: 3dcd747ebc10ffc7d8baef8b8f387c629d6c67cf782e1f8969aa142e1acec58aa61dbf2cc6c04c56e1ae35c0897bd088a0b2fb144424639f062d0289aaa28ec2
+MD5sum: 28f50815444da9e0f600da36ac1a6d8c
+SHA1: 5ed447580f120911b47c4b35808216882b1e841f
+SHA256: deec9926cab9fba54afdc8caed01079ebad4fe35bf022f0cdb19a3387e47973f
+SHA512: f785ea97da74078d358baecda62d1fd221fa04e68d8bc9bc37415f34fb818ef04d3620d0a1594713288774d630c6574c6387d917f5bf9b1290b63c301d422d9d
 Homepage: https://github.com/Syntax-XXX/rsrb
 Description: RSRB (RackStation ReBoot) system identity
  Brands a Debian 12 system as RSRB: /etc/os-release (ID=rsrb,
@@ -60,4 +60,22 @@ Description: RSRB (RackStation ReBoot) system identity
  the console login banner and a short login message.
  Debian's original files are kept aside with dpkg-divert and come back
  when the package is removed.
+
+Package: rsrb
+Architecture: all
+Version: 1.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-release, rsrb-neofetch, rackpanel
+Filename: pool/main/rsrb_1.0.0_all.deb
+Size: 864
+MD5sum: d3829bdb9b1a6ce4b89cb5a1c2cd8e12
+SHA1: 0dc6874c06d0fd35d9f0036aadedd1db075d845a
+SHA256: e8efa96f06277d5425a82a147b10a557d03c24603bdcd576f6af5a492c934ef2
+SHA512: 4a71ef48551269629485a7ce34b68e787dc73c1294bdc32a0bed40453bba91426834e7afeceb3160c70cdbff3111027f9711f27e53d43c2e0a3510654a83ac24
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB base system (metapackage)
+ RackStation ReBoot on any Debian 12: system identity, neofetch preset and
+ the RackPanel web UI. On a Synology RS812 install rsrb-rs812 instead.
 

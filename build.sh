@@ -35,13 +35,15 @@ for fl in "out-flash:rsrb:core:Only what a NAS needs is built in." \
   IFS=: read -r od meta flavor fdesc <<<"$fl"
   KOUT=$KB/$od
   [ -f "$KOUT/uImage" ] && [ -f "$KOUT/spi-nor-unlock.ko" ] || continue
-  KVER=$(ls "$KOUT/modules/lib/modules"); KPKG=6.1.176-${KERNEL_REV:-2}
+  KVER=$(ls "$KOUT/modules/lib/modules"); KPKG=6.1.176-${KERNEL_REV:-3}
   r="$work/linux-image-$flavor"; cp -r packages/linux-image "$r"
   mkdir -p "$r/usr/lib/modules" "$r/usr/lib/rsrb/kernel"
   cp -a "$KOUT/modules/lib/modules/$KVER" "$r/usr/lib/modules/" && rm -f "$r/usr/lib/modules/$KVER/build" "$r/usr/lib/modules/$KVER/source"
   cp "$KOUT/uImage" "$r/usr/lib/rsrb/kernel/uImage-$KVER"
   cp "$KOUT/spi-nor-unlock.ko" "$r/usr/lib/rsrb/kernel/spi-nor-unlock-$KVER.ko"
-  sed -i "s/@KVER@/$KVER/g; s/@PKGVER@/$KPKG/; s/@FLAVOR@/$flavor/g; s|@FLAVORDESC@|$fdesc|; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r"/DEBIAN/*
+  # the full kernel ships WireGuard: say so, or apt pulls in a Debian kernel to satisfy wireguard-tools
+  prov=linux-image; [ "$flavor" = full ] && prov="linux-image, wireguard-modules (= 1.0.20210914)"
+  sed -i "s/@KVER@/$KVER/g; s/@PKGVER@/$KPKG/; s/@FLAVOR@/$flavor/g; s|@FLAVORDESC@|$fdesc|; s/@PROVIDES@/$prov/; s/@SIZE@/$(du -sk "$r" --exclude=DEBIAN | cut -f1)/" "$r"/DEBIAN/*
   dpkg-deb --root-owner-group -Zxz --build "$r" "$POOL/linux-image-${KVER}_${KPKG}_armel.deb" >/dev/null
   m="$work/meta-$flavor"; cp -r packages/linux-image-rsrb "$m"
   sed -i "s/@META@/$meta/; s/@KVER@/$KVER/; s/@PKGVER@/$KPKG/; s/@FLAVOR@/$flavor/g" "$m/DEBIAN/control"

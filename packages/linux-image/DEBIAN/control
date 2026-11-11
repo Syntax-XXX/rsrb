@@ -3,7 +3,7 @@ Version: @PKGVER@
 Architecture: armel
 Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
 Depends: kmod, rsrb-flash-kernel
-Provides: linux-image
+Provides: @PROVIDES@
 Section: kernel
 Priority: optional
 Homepage: https://github.com/Syntax-XXX/rs812-debian

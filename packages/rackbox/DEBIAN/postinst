@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+# on upgrade: rewrite the service units of existing containers with the new defaults (applies at their next restart)
+if [ "$1" = configure ] && [ -n "$2" ]; then
+  rackbox refresh >/dev/null || true
+fi

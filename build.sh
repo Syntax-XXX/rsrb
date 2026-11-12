@@ -35,7 +35,7 @@ for fl in "out-flash:rsrb:core:Only what a NAS needs is built in." \
   IFS=: read -r od meta flavor fdesc <<<"$fl"
   KOUT=$KB/$od
   [ -f "$KOUT/uImage" ] && [ -f "$KOUT/spi-nor-unlock.ko" ] || continue
-  KVER=$(ls "$KOUT/modules/lib/modules"); KPKG=6.1.176-${KERNEL_REV:-3}
+  KVER=$(ls "$KOUT/modules/lib/modules"); KPKG=6.1.176-${KERNEL_REV:-4}
   r="$work/linux-image-$flavor"; cp -r packages/linux-image "$r"
   mkdir -p "$r/usr/lib/modules" "$r/usr/lib/rsrb/kernel"
   cp -a "$KOUT/modules/lib/modules/$KVER" "$r/usr/lib/modules/" && rm -f "$r/usr/lib/modules/$KVER/build" "$r/usr/lib/modules/$KVER/source"

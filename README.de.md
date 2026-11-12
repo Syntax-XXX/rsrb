@@ -43,7 +43,7 @@ Signierschlüssel: `C967 9F05 04B2 68FE BE8D 73C7 67C5 9D95 3A7E DE6A`
 | `linux-image-rsrb` | armel | neuester RSRB-**Core**-Kernel: fest eingebaut ist nur, was ein NAS braucht |
 | `linux-image-rsrb-full` | armel | neuester RSRB-**Full**-Kernel: + memory-cgroup, Netfilter/NAT, WireGuard, IPv6, NTFS3, CIFS |
 | `rsrb-flash-kernel` | armel | `rsrb-flash-kernel VERSION` schreibt einen Kernel in den SPI-Flash (fragt nach, prüft durch Rücklesen, fasst U-Boot nie an) |
-| `rsrb-rs812-hw` | armel | Lüftersteuerung nach Plattentemperatur (`rs812-fan.service`), gpio-fan/RTC-Module |
+| `rsrb-rs812-hw` | armel | Lüftersteuerung nach Plattentemperatur (`rs812-fan.service`), gpio-fan/RTC-Module, auf der RS812 gemessenes Netzwerk- und Read-Ahead-Tuning |
 | `rackbox` | armel, armhf, arm64, amd64 | Docker-Images ohne Daemon (systemd-nspawn) + die Containers-Seite für RackPanel |
 | `rackpanel` | armel, armhf, arm64, amd64 | NAS-Weboberfläche. Fragt nach Benutzer, Passwort und Port (debconf); ändern mit `dpkg-reconfigure rackpanel`. |
 | `rsrb-neofetch` | all | neofetch-Preset mit RSRB-Logo und NAS-Infos; Befehl `rsrbfetch`. Eine eigene `~/.config/neofetch/config.conf` hat Vorrang. |

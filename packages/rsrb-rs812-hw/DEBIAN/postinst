@@ -9,4 +9,10 @@ if [ "$1" = configure ]; then
   systemctl enable rs812-fan.service >/dev/null 2>&1 || true
   if [ -n "$2" ] || systemctl is-active -q rs812-fan.service; then systemctl restart rs812-fan.service || true
   else systemctl start rs812-fan.service || true; fi
+  # apply the tuning rules now too (the network rule runs on "add", i.e. at boot)
+  udevadm control --reload-rules 2>/dev/null || true
+  for n in /sys/bus/platform/drivers/mv643xx_eth_port/*/net/*; do
+    [ -e "$n" ] && ethtool -C "${n##*/}" rx-usecs 100 2>/dev/null || true
+  done
+  udevadm trigger --action=change --subsystem-match=block --sysname-match='md*' 2>/dev/null || true
 fi

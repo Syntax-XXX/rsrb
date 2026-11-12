@@ -1,0 +1,329 @@
+Package: filebrowser
+Architecture: armel
+Version: 2.63.23-2
+Priority: optional
+Section: web
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Installed-Size: 34208
+Filename: pool/main/filebrowser_2.63.23-2_armel.deb
+Size: 11535664
+MD5sum: 97048d24cc618d3d2074e2c90bcb67eb
+SHA1: 636afad265d325715340c8d89a126d24d7d05894
+SHA256: 5eab6059b870bc853a59c75cd2eb58cae88376eefa240ba02e0275dbfe062d1e
+SHA512: cd84056cdcb85ebfbdd7939e01792a1602fe630406eb2bc5ac6dd46bdecd14182a00667f17ffd4c662aff7e8a90a2433ea517139dc0f5698cef0bdaf4a59a866
+Homepage: https://filebrowser.org
+Description: web file manager (File Browser, packaged for RSRB)
+ Browse, upload, edit and share files on your NAS from any browser.
+ Runs on port 8085 with /volume1 (or /srv) as its root; the first admin
+ password is generated during installation.
+
+Package: linux-image-6.1.176-rsrb-full
+Architecture: armel
+Version: 6.1.176-5
+Priority: optional
+Section: kernel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Installed-Size: 58240
+Provides: linux-image, wireguard-modules (= 1.0.20210914)
+Depends: kmod, rsrb-flash-kernel
+Filename: pool/main/linux-image-6.1.176-rsrb-full_6.1.176-5_armel.deb
+Size: 13300004
+MD5sum: 5760e908c440638a964067a29fed07f6
+SHA1: 9b4ba011ad1be990db3db6e4b1f0893bcbff470e
+SHA256: ac32c0f54adcc2979948fb0d0892e8d79ca0f853ee1e24d5486282cf8f06e014
+SHA512: 54b4f34d88c7f7e26e3f49beb396df21072428fdba87e9962c544c35f86e0765898a34d4fbaa4b17c3e06f65702dfc744128720ac6bf0607b4d3fac6fb7acbdf
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: RSRB full kernel 6.1.176-rsrb-full for the Synology RS812
+ Linux 6.1.176-rsrb-full with the RS812 device tree, built to fit the 2 MiB kernel
+ slot of the internal SPI flash. Adds memory limits for containers (memory cgroup, ~20 % slower writes), netfilter/NAT, WireGuard, IPv6, NTFS3 and CIFS. Installs the modules and the uImage;
+ the flash is only written when you run rsrb-flash-kernel.
+
+Package: linux-image-6.1.176-rsrb
+Architecture: armel
+Version: 6.1.176-5
+Priority: optional
+Section: kernel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Installed-Size: 55480
+Provides: linux-image
+Depends: kmod, rsrb-flash-kernel
+Filename: pool/main/linux-image-6.1.176-rsrb_6.1.176-5_armel.deb
+Size: 12609784
+MD5sum: a774a63d21968a89977f9fafd66e12da
+SHA1: 111255a9a51bb4f29eda628ddbc457814847546d
+SHA256: f98ef4aa23fa99dd650c89be4605f0c536b6f0a76c6be4a54b96601748a9858a
+SHA512: 4cd7ecf15370bdfe2c96f4cd984ce367fc3307cc445a736396972b2231eacfb4797374cf855b9d7ad6d872673ea95ae8f00e63b31ce43b97675c22ca5dfbd78c
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: RSRB core kernel 6.1.176-rsrb for the Synology RS812
+ Linux 6.1.176-rsrb with the RS812 device tree, built to fit the 2 MiB kernel
+ slot of the internal SPI flash. Only what a NAS needs, tuned for speed (fastest: NFS ~50 MB/s read, ~37 MB/s write). Installs the modules and the uImage;
+ the flash is only written when you run rsrb-flash-kernel.
+
+Package: linux-image-rsrb-full
+Architecture: armel
+Version: 6.1.176-5
+Priority: optional
+Section: kernel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: linux-image-6.1.176-rsrb-full
+Filename: pool/main/linux-image-rsrb-full_6.1.176-5_armel.deb
+Size: 844
+MD5sum: 542f7b07c7d894d3f98b885303aa7352
+SHA1: 9ffb3c6fb5e2b2ff990aec29bc52c20517faf3b4
+SHA256: 2f076fb199909ab365dd339f9c3cc2befe79f2af9fe53b74b5e508c5d160965e
+SHA512: c1d7f5d071080360f25229c4d4988b9416d32580015ba014f98fe8f0a229a59e2341085c9c6ecb5d7b300550a5a8f745e853f11f352c7771fe4f96ba39fd8345
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: latest RSRB full kernel for the Synology RS812 (metapackage)
+ Always depends on the newest RSRB full kernel. Activate a new kernel
+ with rsrb-flash-kernel and a reboot.
+
+Package: linux-image-rsrb
+Architecture: armel
+Version: 6.1.176-5
+Priority: optional
+Section: kernel
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: linux-image-6.1.176-rsrb
+Filename: pool/main/linux-image-rsrb_6.1.176-5_armel.deb
+Size: 844
+MD5sum: 081a37b5742bc1405ec152d025eda6fb
+SHA1: b832aacc8872a20399e49bdb4d6388b250c54339
+SHA256: 1cd349f1fa72cb85c62e4668518ca3145e3d96a54a2d4b47924687f999a7ab82
+SHA512: d94fbef60dcacfc04d23b2422c92cd9de7717217270fe4923eb73ad70a10ef4f9ac3aee9753dce6b1465dd63950c8b333a1f26af2d031846679f1499af63ab65
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: latest RSRB core kernel for the Synology RS812 (metapackage)
+ Always depends on the newest RSRB core kernel. Activate a new kernel
+ with rsrb-flash-kernel and a reboot.
+
+Package: rackbox
+Architecture: armel
+Version: 0.1.2
+Priority: optional
+Section: admin
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Installed-Size: 5420
+Depends: systemd-container
+Suggests: rackpanel
+Filename: pool/main/rackbox_0.1.2_armel.deb
+Size: 1633076
+MD5sum: a7c12f166596405d287bfa54c8f30f58
+SHA1: 9d4da8954b64820310b1d145bda12128722219ff
+SHA256: ff050644f43a38b956c51276e849dce3fe616c32e3d63456336f0adcbcff7c53
+SHA512: 8fc23b6ba8db9a4c41e14c3bd961a4f3683efc84bcd53470fcdaed4d96e541433b7714bd998081c24c9c49efd46c47b9563c08c2c50eac793a5c88c46c7340fd
+Homepage: https://github.com/Syntax-XXX/rackpanel
+Description: Docker images without a daemon
+ RackBox pulls OCI/Docker images for this CPU (ARMv5 included), unpacks them
+ into plain folders and runs every container as its own systemd service via
+ systemd-nspawn – no daemon, no overlayfs. Includes an app catalog and the
+ "Containers" page for RackPanel.
+
+Package: rackpanel
+Architecture: armel
+Version: 1.2.5
+Priority: optional
+Section: admin
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Installed-Size: 5896
+Depends: debconf (>= 0.5) | debconf-2.0
+Recommends: smartmontools, hdparm
+Suggests: samba, wsdd, nfs-kernel-server
+Filename: pool/main/rackpanel_1.2.5_armel.deb
+Size: 1729392
+MD5sum: d16ba54c875ce827ec0d3d1aeb7b5367
+SHA1: 7dddb246606e70e4d79b00691ef07d3eab561269
+SHA256: 9affde451b47141c539c967bb16f7119b791b4021da4b6536c6ce5ed689870b0
+SHA512: e78aa7f7b555bc5446afbab9af8a2e10563266fc88b02b75012b93acc04214905cc830b56576901210259247126245a7e68bec5bfc625f20a8f7dc935f796bd2
+Homepage: https://github.com/Syntax-XXX/rackpanel
+Description: lightweight NAS web UI (DSM replacement)
+ Storage, SMART, RAID, files, SMB/NFS shares, users, apps, services,
+ updates and logs in the browser. A single program without a database –
+ runs even on ARMv5 with 512 MB RAM.
+
+Package: rsrb-core
+Architecture: all
+Version: 1.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-release, rsrb-neofetch, openssh-server, mdadm, smartmontools, hdparm, nfs-kernel-server, samba
+Recommends: wsdd, avahi-daemon
+Filename: pool/main/rsrb-core_1.0.0_all.deb
+Size: 912
+MD5sum: f4349ed94126941f567acbe415e5a6ec
+SHA1: 67851c7ac5e7db62f9a12771fed8ca171a798b26
+SHA256: 26f9b830057524be2becfafd6de47b087065af38a92a068c51aa3d5d99329e38
+SHA512: a1860c1ba0ca7372e484762558bc2bee809333392157b62308545538663214612da6599a15bd7b285699a6a481eeb6f612c7283ae4f81fb51fd82bfec3f12e44
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Core – barebone NAS (metapackage)
+ SSH, SMB and NFS shares, software RAID and disk health – nothing else running. No web UI.
+
+Package: rsrb-flash-kernel
+Architecture: armel
+Version: 1.0.0
+Priority: optional
+Section: admin
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: mtd-utils, kmod
+Breaks: linux-image-6.1.176-rsrb (<< 6.1.176-2)
+Replaces: linux-image-6.1.176-rsrb (<< 6.1.176-2)
+Filename: pool/main/rsrb-flash-kernel_1.0.0_armel.deb
+Size: 31312
+MD5sum: b168fcb06b66dc13f1c861a8b11e3b65
+SHA1: 506f983ec4e4237850918336d628f012b3c4ad5f
+SHA256: fddd8a3f3d44e4e70cf2fa98a7b84ac87337cf9f2776347da2943f0e6ebbb5fa
+SHA512: 8424fe0a220e185446d299d390beeccde832dacec7381f8aa9e5c906ac5d5c1574eabadb36eadd13ad483f017283438f3bc484c5266cb28d92a6f2fa0e15419e
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: write RSRB kernels to the Synology RS812 SPI flash
+ rsrb-flash-kernel writes an installed RSRB kernel to mtd1, verifies it by
+ reading it back and never touches the bootloader (mtd0).
+
+Package: rsrb-full
+Architecture: all
+Version: 1.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-core, rackpanel, rackbox
+Recommends: wireguard-tools, nftables
+Filename: pool/main/rsrb-full_1.0.0_all.deb
+Size: 864
+MD5sum: 10a70d8d6075f17437a078ec51afa03e
+SHA1: eaeff1955ab1b9f681ea4ed2cb89dc3f1f1dc786
+SHA256: b91e6ccb70673c86e8850b7d12db76c2b8dbfba324998015d680923e6d1d62e5
+SHA512: 51fb6f50ac4707d8c826c54b549f85a3c7ac9a44ee05e01bef033cf02c5ae887bc0fca16adbaabf7207f432ac777183849691718113e6d30f37ea930071def57
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Full – NAS with web UI and containers (metapackage)
+ RSRB Core plus the RackPanel web UI and RackBox containers (Docker images without a daemon).
+
+Package: rsrb-neofetch
+Architecture: all
+Version: 1.0.1
+Priority: optional
+Section: utils
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: neofetch
+Filename: pool/main/rsrb-neofetch_1.0.1_all.deb
+Size: 2060
+MD5sum: c47e58c6ec43b70ad434ba9c84134af1
+SHA1: 8a54febc94c48f392f2bc057c9cabf7770ddc13b
+SHA256: d9a34e58d4d3eb6e52699966c7c443a90531fb06fe9ef59852cf328e4d92d898
+SHA512: ffa47636f2a141634fe646b258a597c65fd5d451013efaafb89ad1f01a34e3540530092c66cc910e5f78c53e2bfcea513bce2542dc53172c2cf35c989d97f6cf
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB neofetch preset (RackStation ReBoot logo)
+ Makes neofetch show the RSRB logo and NAS-relevant info (volumes,
+ local IP). Your own ~/.config/neofetch/config.conf still wins.
+ Also provides the rsrbfetch command.
+
+Package: rsrb-release
+Architecture: all
+Version: 1.0.1
+Priority: optional
+Section: admin
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: base-files
+Recommends: rsrb-neofetch
+Filename: pool/main/rsrb-release_1.0.1_all.deb
+Size: 1856
+MD5sum: 43a5caad31851dca349c40edf7205e3b
+SHA1: 70ca4af1326b8bb6192e3063898b43d15c6f1300
+SHA256: 9c34616d4d0e50110171b770ed39e3e5831d5f106323d201f8657650503d10ac
+SHA512: 6941ee589c207fb4a2df62ccc421499750f430367f668ef41e6c0bdc909795796d3260720560eaf465a3b391452bfd0619cfc803fa978aa17d55757d010330bd
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB (RackStation ReBoot) system identity
+ Brands a Debian 12 system as RSRB: /etc/os-release (ID=rsrb,
+ ID_LIKE=debian, version stays 12/bookworm so tools keep working),
+ the console login banner and a short login message.
+ Debian's original files are kept aside with dpkg-divert and come back
+ when the package is removed.
+
+Package: rsrb-rs812-core
+Architecture: armel
+Version: 1.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-core, rsrb-rs812-hw, linux-image-rsrb | linux-image-rsrb-full
+Filename: pool/main/rsrb-rs812-core_1.0.0_armel.deb
+Size: 840
+MD5sum: 32ee1f650240dc436607d428c47c0f1f
+SHA1: 1dcc7b51471f0ada05cebd3cbd8c158022d6fc18
+SHA256: 3eddf75af87b693b4a933fd0b7cad4a781c5af598e88e1b2495e63d06536f8da
+SHA512: 4ecd3524be6c1be0b1e08e265e7f3f6846085d8a7fbb9b631c81e4855a5ee595c9b54eb08871ea395a06bcf2017e5371c1fe05312029e7cd44f43ab3f804f06c
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Core for the Synology RS812 (metapackage)
+ Barebone NAS on the RS812: RSRB core kernel, fan control, SSH, SMB, NFS.
+
+Package: rsrb-rs812-full
+Architecture: armel
+Version: 1.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-full, rsrb-rs812-core, linux-image-rsrb-full
+Filename: pool/main/rsrb-rs812-full_1.0.0_armel.deb
+Size: 860
+MD5sum: 6182965a9e4c82ab627b8baf662a2230
+SHA1: 870528db2cc8006f7a8848d9f3fd6b648e0972ae
+SHA256: 1e9d6ed9f8df7ac5ca9ba0b5fd491039c419abe30bf32bdd7114eb7a0ede7914
+SHA512: 983ab5954bb27b55bcab048f6439598d71ae281d46491bdc7fce2d9573d6142382fc12476427fe5a870578fbc51ec43c2e57cd853b8f605ef25fa046ec3ea77f
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Full for the Synology RS812 (metapackage)
+ Everything on the RS812: full kernel (memory limits, firewall/NAT, WireGuard), RackPanel and RackBox.
+
+Package: rsrb-rs812-hw
+Architecture: armel
+Version: 2.2.0
+Priority: optional
+Section: admin
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: smartmontools, hdparm, ethtool, python3
+Breaks: rsrb-rs812 (<< 2.0.0)
+Replaces: rsrb-rs812 (<< 2.0.0)
+Filename: pool/main/rsrb-rs812-hw_2.2.0_armel.deb
+Size: 5908
+MD5sum: 6892603cf4118fefcd0bc97da4ca7df5
+SHA1: 6299107cf50d3cf6ffefdfb12e992c5f42d2259f
+SHA256: 02e0d910bd86bd31cb2d088f5c3edb99940bd1b232cd31202f7c13e925d5948a
+SHA512: 0185a750ec13ba4714604130c4a6fdd75f0792ef19de6461a60224fe4afd9d9a3c1ea7462b22508a3e83b0f5e40bbc347a4c1a183a9b1b22ed98ed93a6787060
+Homepage: https://github.com/Syntax-XXX/rs812-debian
+Description: Synology RS812 hardware support for RSRB
+ Fan control by disk temperature (rs812-fan.service; sleeping disks are not
+ woken), the hardware modules (gpio-fan, RTC) and network/disk tuning measured
+ on the RS812 (shorter RX interrupt coalescing, 4 MiB read-ahead on data arrays).
+ Front panel like under DSM (rs812-panel.service): disk LEDs with activity, status
+ LED green/amber, power LED, real fan speed from the tach pulses.
+
+Package: rsrb-rs812
+Architecture: armel
+Version: 2.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-rs812-full
+Filename: pool/main/rsrb-rs812_2.0.0_armel.deb
+Size: 788
+MD5sum: 46c47f8a153d561323354ff1d72be04b
+SHA1: ce198fa6ef815401b1851b8fb8f837e091606cf9
+SHA256: fdeff63e2cc39310598bcf1c258fe4fafc717f6e3182275a8c7018b4020cb891
+SHA512: faf9e48774cd36f68bfe04cd53094e236814cc373e98df45174e571663f56fec359502ea0ed36366d985b1da5765f72e6c018b2e01b8c7e8e3d039ea9fbe44f6
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB for the Synology RS812 – everything (metapackage)
+ Shortcut for rsrb-rs812-full.
+
+Package: rsrb
+Architecture: all
+Version: 2.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-full
+Filename: pool/main/rsrb_2.0.0_all.deb
+Size: 772
+MD5sum: 34b528f58f2f39072307423850537c4b
+SHA1: a585112256af2bdd0732ff8b6325d01fe5381a60
+SHA256: 71bb176ffbdd523dced51cc015096eaf44b9fd43a395c1e5d3e43f81c5811888
+SHA512: 2d109f9d68b74f9af91f5030755085d6b9428a0b1682f8f209d983f25f08f31418a77668dba39f5cab8588d9c22b8761de3985ab3a6582a0b6f78d72e9a14768
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB – everything (metapackage)
+ Shortcut for rsrb-full.
+

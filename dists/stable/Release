@@ -1,0 +1,44 @@
+Architectures: armel armhf arm64 amd64
+Codename: stable
+Components: main
+Date: Thu, 12 Nov 2026 21:44:03 +0000
+Description: RSRB – RackStation ReBoot packages
+Label: RSRB
+Origin: RSRB
+Suite: stable
+MD5Sum:
+ b77d904e455cf1a786cc252e755d0f4e             6685 main/binary-amd64/Packages
+ 4570cf0f3e6b26dc21b66e659f758845             2984 main/binary-amd64/Packages.gz
+ dbd09d8c7813473570956ddb7e3074ab             6685 main/binary-arm64/Packages
+ f87f8e0ce76d521df98dbde5662f48c3             2986 main/binary-arm64/Packages.gz
+ 558d64f6c67bb4a06141470d768dab05            14719 main/binary-armel/Packages
+ 8d837f3226717f51e024468f38b17f9e             5659 main/binary-armel/Packages.gz
+ 3ee63dbb7730471dc4fb34fee8e52a23             6685 main/binary-armhf/Packages
+ e4825d2406ef28518169f7dd067c3836             2983 main/binary-armhf/Packages.gz
+SHA1:
+ ed15801a569b670448c98ee1eebe8165c182dd19             6685 main/binary-amd64/Packages
+ a7d98c4bd8e1985b99bdac941339ec7398df7750             2984 main/binary-amd64/Packages.gz
+ c127a4dd2b727088424adabd415a32a5ba8a8a34             6685 main/binary-arm64/Packages
+ 344eff661c4a5f538f37ed30aeedf4991eb76067             2986 main/binary-arm64/Packages.gz
+ 1ef0dba248d8aab769657824ddfe32a7499b847e            14719 main/binary-armel/Packages
+ e3c05272552d3b1189742cc94e4f99fdf7d9cdda             5659 main/binary-armel/Packages.gz
+ 42c570eff820fc7a263d4c38eb8372c6e87a5dd9             6685 main/binary-armhf/Packages
+ a8b0fe12152e8b01d96a934270df5b5d2c85db92             2983 main/binary-armhf/Packages.gz
+SHA256:
+ 1c9be2f8fbc1684c88bdef34121100857137503d547b970f138cb75eb0bc3050             6685 main/binary-amd64/Packages
+ 1db70726cf23ea5845911108e0894fb94ecf41b595379904f087f184376bf743             2984 main/binary-amd64/Packages.gz
+ d52e7c2d220d0673deca1d5bff2119873a2dd672732d8b30081b55b24a178638             6685 main/binary-arm64/Packages
+ 60bebd385e2b47d2ea7445ad2e3ba2d77406bc78013b9a229c8de4a9144c390e             2986 main/binary-arm64/Packages.gz
+ b9220c558a4feb5df77104c15231e84907e78c6d55045f8cdac1a64320bcc78b            14719 main/binary-armel/Packages
+ 1eb31c5893c04d6b56d4167229da9c991aeaf5da6c7282a56e1f5c270af363bf             5659 main/binary-armel/Packages.gz
+ 9994cc9d6e9f791001989305e64a8e334fb1f6a6e49a20c1dee64854b1a888b0             6685 main/binary-armhf/Packages
+ 367bb48c8382d7a0a1191d32776a83a333c513f94e387dd75b818b88a3150c15             2983 main/binary-armhf/Packages.gz
+SHA512:
+ dbf551521c1b56948acbcabe93ab33e7d112f08f6dad84b72266a0f181714253fa1846614b4b817a5313865dc0ff903999f36f87cb4951bfde3cfde9936f54e1             6685 main/binary-amd64/Packages
+ f8f4807c51c51194af3565639dc97abce9b6e8a69352b2f8e0bf6645ac80c25662e709c83b4ea517acb9161c7fbd74f653247c7136e59e885c26b9d5aa300b3b             2984 main/binary-amd64/Packages.gz
+ 5170914a79ef5b84a5d23ab161f4df21f2f65b03bf615e9572c24583e8be96bdb7789bd68bdcae48b0e8a7257a0551b0182d869587061a2fc103759be2b45188             6685 main/binary-arm64/Packages
+ 46a551705c96669c0dd7c7c057b4019194c726887e1043aa03bc0f79d59db7ccb01aeb9de61575d211000b353645df1b3da7abb7a95736d65943ddc456481564             2986 main/binary-arm64/Packages.gz
+ eacf8563cb680bec4c449ca881677b0ededbd2d48348a194f4b92c9e4f87bac0c781908bf67a06e3d7719490e819b94f84cd79c900f209f02c7a8d610cfb4431            14719 main/binary-armel/Packages
+ 82695376b04270c316defbd912d9ab77fae79afe958d2007689702d03068b7bf4aad4c7b99582053744dae4a1f9d541081045c8713517661737da3dc15ffc637             5659 main/binary-armel/Packages.gz
+ 53c97a5fea74b164ec5c0305156606c7e6aabcceb6a699ee5d6a6cb0f31140c526799053613014769d063a643aec5b8d2dda38464a6990aeb4ffe2d7cf16b661             6685 main/binary-armhf/Packages
+ af7ff8fdf221cc67e281f9df2468f42459f48a0108b71ae594f42f3d85e0a1a8fd949b0563a5f0e27d7c6786851121d175609552e20824a52037c9fc236bee3e             2983 main/binary-armhf/Packages.gz

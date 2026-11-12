@@ -1,0 +1,157 @@
+Package: filebrowser
+Architecture: arm64
+Version: 2.63.23-2
+Priority: optional
+Section: web
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Installed-Size: 33760
+Filename: pool/main/filebrowser_2.63.23-2_arm64.deb
+Size: 11247672
+MD5sum: 70f97c9e3bc35ab35237bc1d81053d4e
+SHA1: 8936963205809d6ba83f8e19e96731017753c18e
+SHA256: b8267d546fd559cff6e54b5b65f4989a87f05ed30d25f067098068d3e312ce0a
+SHA512: 1916df2d4d74e0282f6b1b95ab7c4c05945b120e5556a95d8552b1c5973497aec81d537a613a06a8391acaa615286c9e7acc512081edf978f8a74c1d4f4f214d
+Homepage: https://filebrowser.org
+Description: web file manager (File Browser, packaged for RSRB)
+ Browse, upload, edit and share files on your NAS from any browser.
+ Runs on port 8085 with /volume1 (or /srv) as its root; the first admin
+ password is generated during installation.
+
+Package: rackbox
+Architecture: arm64
+Version: 0.1.2
+Priority: optional
+Section: admin
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Installed-Size: 5356
+Depends: systemd-container
+Suggests: rackpanel
+Filename: pool/main/rackbox_0.1.2_arm64.deb
+Size: 1667300
+MD5sum: 8959c1bfd62139ffde67630ced9d04a3
+SHA1: 06940f8a6a6a4e0c1d97c334ef6836d74adab66f
+SHA256: 7a8a4ec3bc9a36f4d9e3fed4296dc75f4c96e2642dca366e6d4dfb8275edc580
+SHA512: 4ae5987a243b81f36b0057f69522a9e60f4f0fdbcd63ec4b2b3f5c82eba85644297bd0e567623863da8feeb5d9e19c105e9a3fdd2a0b0eb2f4b170e7be1d2923
+Homepage: https://github.com/Syntax-XXX/rackpanel
+Description: Docker images without a daemon
+ RackBox pulls OCI/Docker images for this CPU (ARMv5 included), unpacks them
+ into plain folders and runs every container as its own systemd service via
+ systemd-nspawn – no daemon, no overlayfs. Includes an app catalog and the
+ "Containers" page for RackPanel.
+
+Package: rackpanel
+Architecture: arm64
+Version: 1.2.5
+Priority: optional
+Section: admin
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Installed-Size: 5704
+Depends: debconf (>= 0.5) | debconf-2.0
+Recommends: smartmontools, hdparm
+Suggests: samba, wsdd, nfs-kernel-server
+Filename: pool/main/rackpanel_1.2.5_arm64.deb
+Size: 1757508
+MD5sum: 884a06579a26c2b3d377c5104528048e
+SHA1: 59c3b4bd0fe159bb73294cd101b108863a1e4c8d
+SHA256: 4f7e834c470931acfb8a7a1d1bab67168b30b0747f0fe80e8dc63d29d69e02b4
+SHA512: ae68d794b81738ce0fd3b86ee3d38901ad559354bceff8af7a62335977278abef1f29ffef951648461bd04bfeed1316eb6ce141318ed0fb75e4e6dfbcaef2bbe
+Homepage: https://github.com/Syntax-XXX/rackpanel
+Description: lightweight NAS web UI (DSM replacement)
+ Storage, SMART, RAID, files, SMB/NFS shares, users, apps, services,
+ updates and logs in the browser. A single program without a database –
+ runs even on ARMv5 with 512 MB RAM.
+
+Package: rsrb-core
+Architecture: all
+Version: 1.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-release, rsrb-neofetch, openssh-server, mdadm, smartmontools, hdparm, nfs-kernel-server, samba
+Recommends: wsdd, avahi-daemon
+Filename: pool/main/rsrb-core_1.0.0_all.deb
+Size: 912
+MD5sum: f4349ed94126941f567acbe415e5a6ec
+SHA1: 67851c7ac5e7db62f9a12771fed8ca171a798b26
+SHA256: 26f9b830057524be2becfafd6de47b087065af38a92a068c51aa3d5d99329e38
+SHA512: a1860c1ba0ca7372e484762558bc2bee809333392157b62308545538663214612da6599a15bd7b285699a6a481eeb6f612c7283ae4f81fb51fd82bfec3f12e44
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Core – barebone NAS (metapackage)
+ SSH, SMB and NFS shares, software RAID and disk health – nothing else running. No web UI.
+
+Package: rsrb-full
+Architecture: all
+Version: 1.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-core, rackpanel, rackbox
+Recommends: wireguard-tools, nftables
+Filename: pool/main/rsrb-full_1.0.0_all.deb
+Size: 864
+MD5sum: 10a70d8d6075f17437a078ec51afa03e
+SHA1: eaeff1955ab1b9f681ea4ed2cb89dc3f1f1dc786
+SHA256: b91e6ccb70673c86e8850b7d12db76c2b8dbfba324998015d680923e6d1d62e5
+SHA512: 51fb6f50ac4707d8c826c54b549f85a3c7ac9a44ee05e01bef033cf02c5ae887bc0fca16adbaabf7207f432ac777183849691718113e6d30f37ea930071def57
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB Full – NAS with web UI and containers (metapackage)
+ RSRB Core plus the RackPanel web UI and RackBox containers (Docker images without a daemon).
+
+Package: rsrb-neofetch
+Architecture: all
+Version: 1.0.1
+Priority: optional
+Section: utils
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: neofetch
+Filename: pool/main/rsrb-neofetch_1.0.1_all.deb
+Size: 2060
+MD5sum: c47e58c6ec43b70ad434ba9c84134af1
+SHA1: 8a54febc94c48f392f2bc057c9cabf7770ddc13b
+SHA256: d9a34e58d4d3eb6e52699966c7c443a90531fb06fe9ef59852cf328e4d92d898
+SHA512: ffa47636f2a141634fe646b258a597c65fd5d451013efaafb89ad1f01a34e3540530092c66cc910e5f78c53e2bfcea513bce2542dc53172c2cf35c989d97f6cf
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB neofetch preset (RackStation ReBoot logo)
+ Makes neofetch show the RSRB logo and NAS-relevant info (volumes,
+ local IP). Your own ~/.config/neofetch/config.conf still wins.
+ Also provides the rsrbfetch command.
+
+Package: rsrb-release
+Architecture: all
+Version: 1.0.1
+Priority: optional
+Section: admin
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: base-files
+Recommends: rsrb-neofetch
+Filename: pool/main/rsrb-release_1.0.1_all.deb
+Size: 1856
+MD5sum: 43a5caad31851dca349c40edf7205e3b
+SHA1: 70ca4af1326b8bb6192e3063898b43d15c6f1300
+SHA256: 9c34616d4d0e50110171b770ed39e3e5831d5f106323d201f8657650503d10ac
+SHA512: 6941ee589c207fb4a2df62ccc421499750f430367f668ef41e6c0bdc909795796d3260720560eaf465a3b391452bfd0619cfc803fa978aa17d55757d010330bd
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB (RackStation ReBoot) system identity
+ Brands a Debian 12 system as RSRB: /etc/os-release (ID=rsrb,
+ ID_LIKE=debian, version stays 12/bookworm so tools keep working),
+ the console login banner and a short login message.
+ Debian's original files are kept aside with dpkg-divert and come back
+ when the package is removed.
+
+Package: rsrb
+Architecture: all
+Version: 2.0.0
+Priority: optional
+Section: metapackages
+Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
+Depends: rsrb-full
+Filename: pool/main/rsrb_2.0.0_all.deb
+Size: 772
+MD5sum: 34b528f58f2f39072307423850537c4b
+SHA1: a585112256af2bdd0732ff8b6325d01fe5381a60
+SHA256: 71bb176ffbdd523dced51cc015096eaf44b9fd43a395c1e5d3e43f81c5811888
+SHA512: 2d109f9d68b74f9af91f5030755085d6b9428a0b1682f8f209d983f25f08f31418a77668dba39f5cab8588d9c22b8761de3985ab3a6582a0b6f78d72e9a14768
+Homepage: https://github.com/Syntax-XXX/rsrb
+Description: RSRB – everything (metapackage)
+ Shortcut for rsrb-full.
+

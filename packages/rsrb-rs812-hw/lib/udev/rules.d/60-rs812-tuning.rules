@@ -5,5 +5,5 @@
 ACTION=="add", SUBSYSTEM=="net", DRIVERS=="mv643xx_eth_port", RUN+="/usr/sbin/ethtool -C $name rx-usecs 100"
 
 # Data arrays (md2 and up, as DSM numbers them): 4 MiB read-ahead instead of 128 KiB
-# -> sequential reads +13 % (97 -> 110 MB/s); root (md0) and swap (md1) keep the default
+# -> file reads +8-13 % (e.g. 110 -> 124 MB/s); root (md0) and swap (md1) keep the default
 ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="md[2-9]|md[1-9][0-9]", ATTR{queue/read_ahead_kb}="4096"

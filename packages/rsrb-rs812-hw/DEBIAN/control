@@ -1,8 +1,8 @@
 Package: rsrb-rs812-hw
-Version: 2.1.0
+Version: 2.2.0
 Architecture: armel
 Maintainer: Syntax-XXX <Syntax-XXX@users.noreply.github.com>
-Depends: smartmontools, hdparm, ethtool
+Depends: smartmontools, hdparm, ethtool, python3
 Replaces: rsrb-rs812 (<< 2.0.0)
 Breaks: rsrb-rs812 (<< 2.0.0)
 Section: admin
@@ -12,3 +12,5 @@ Description: Synology RS812 hardware support for RSRB
  Fan control by disk temperature (rs812-fan.service; sleeping disks are not
  woken), the hardware modules (gpio-fan, RTC) and network/disk tuning measured
  on the RS812 (shorter RX interrupt coalescing, 4 MiB read-ahead on data arrays).
+ Front panel like under DSM (rs812-panel.service): disk LEDs with activity, status
+ LED green/amber, power LED, real fan speed from the tach pulses.

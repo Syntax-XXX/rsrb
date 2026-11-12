@@ -1,0 +1,153 @@
+#!/usr/bin/python3
+"""RS812 front panel like under DSM.
+
+- Disk LEDs: green = disk present (blinks while it is read/written), amber = SMART says the disk fails,
+  off = empty bay. Bay N = ataN (sda is normally bay 1).
+- Power LED on, status LED green when all is fine, amber blinking on a problem: fan stopped, a RAID array
+  missing a disk that is installed, a failing disk.
+  Microcontroller on /dev/ttyS1 (9600 8N1) with the codes DSM uses: '4' power LED on, '7' status off,
+  '8' green, '9' green blinking, ':' amber, ';' amber blinking. Powering off ('1') is done by the kernel.
+- Fan: the sense line (GPIO 35 / mpp35) pulses while the fan turns (2 pulses per turn, like DSM's
+  FanStatusMapping) -> real speed in /run/rs812/fan_rpm, no pulses = fan stopped.
+- Bytes the microcontroller sends (buttons) are logged, so their codes can be learned.
+"""
+import glob, os, re, select, subprocess, sys, termios, time
+
+TTY, FAN_GPIO, RUN = '/dev/ttyS1', 35, '/run/rs812'
+LEDS = '/sys/class/leds/synology:{}:hdd{}/brightness'
+
+
+def log(msg):
+    print(msg, flush=True)
+
+
+def write(path, val):
+    try:
+        with open(path, 'w') as f:
+            f.write(val)
+    except OSError:
+        pass
+
+
+def open_micro():
+    try:
+        fd = os.open(TTY, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)
+    except OSError as e:
+        log(f'{TTY}: {e} – LEDs of the microcontroller unavailable (kernel without UART1?)')
+        return None
+    a = termios.tcgetattr(fd)
+    a[0] = a[1] = a[3] = 0                                   # raw: no input/output processing, no echo
+    a[2] = termios.CS8 | termios.CREAD | termios.CLOCAL
+    a[4] = a[5] = termios.B9600
+    termios.tcsetattr(fd, termios.TCSANOW, a)
+    return fd
+
+
+def bays():
+    """{bay: 'sdX'} from the ata port of each disk."""
+    out = {}
+    for dev in glob.glob('/sys/block/sd*'):
+        m = re.search(r'/ata(\d+)/', os.path.realpath(dev))
+        if m:
+            out[int(m.group(1))] = os.path.basename(dev)
+    return out
+
+
+def io_count(disk):
+    try:
+        s = open(f'/sys/block/{disk}/stat').read().split()
+        return int(s[0]) + int(s[4])                         # reads + writes completed
+    except (OSError, IndexError, ValueError):
+        return None
+
+
+def smart_failed(disk):
+    # -n standby: a sleeping disk is not woken (then it is reported as fine)
+    r = subprocess.run(['smartctl', '-n', 'standby', '-H', f'/dev/{disk}'], capture_output=True, text=True)
+    return bool(r.returncode & 8) or 'FAILED' in r.stdout
+
+
+def fan_rpm(seconds=0.25):
+    base = '/sys/class/gpio'
+    if not os.path.exists(f'{base}/gpio{FAN_GPIO}'):
+        write(f'{base}/export', str(FAN_GPIO))
+        write(f'{base}/gpio{FAN_GPIO}/direction', 'in')
+    try:
+        f = open(f'{base}/gpio{FAN_GPIO}/value')
+    except OSError:
+        return None
+    edges, last, end = 0, None, time.monotonic() + seconds
+    with f:
+        while time.monotonic() < end:
+            f.seek(0)
+            v = f.read(1)
+            if last is not None and v != last:
+                edges += 1
+            last = v
+    return round(edges / seconds / 4 * 60)                  # 2 edges per pulse, 2 pulses per turn
+
+
+def raid_problems(installed):
+    """Arrays missing a disk that is installed (DSM made 4 slots for 3 disks – that alone is fine)."""
+    bad = []
+    try:
+        md = open('/proc/mdstat').read()
+    except OSError:
+        return bad
+    cur = None
+    for line in md.splitlines():
+        m = re.match(r'(md\d+) :', line)
+        if m:
+            cur = m.group(1)
+            continue
+        m = re.search(r'\[(\d+)/(\d+)\]', line)              # only on the line right after "mdX :" (linear has none)
+        if cur and m and int(m.group(2)) < min(int(m.group(1)), installed):
+            bad.append(f'{cur} has {m.group(2)} of {m.group(1)} disks')
+        cur = None
+    return bad
+
+
+def main():
+    os.makedirs(RUN, exist_ok=True)
+    micro = open_micro()
+    send = (lambda c: os.write(micro, c.encode())) if micro is not None else (lambda c: None)
+    send('4')                                                # power LED on
+    status, problems, failed, last_io, blink = None, [], set(), {}, False
+    next_check = 0
+    while True:
+        now = time.monotonic()
+        disks = bays()
+        if now >= next_check:                                # health every 60 s
+            rpm = fan_rpm()
+            if rpm is not None:
+                write(f'{RUN}/fan_rpm', f'{rpm}\n')
+            failed = {d for d in disks.values() if smart_failed(d)}
+            new = ([] if rpm is None or rpm > 0 else ['fan stopped']) + raid_problems(len(disks)) + \
+                  [f'{d}: SMART failed' for d in sorted(failed)]
+            if new != problems:
+                log('problem: ' + '; '.join(new) if new else 'all fine')
+            problems = new
+            want = ';' if problems else '8'
+            if want != status:
+                send(want)
+                status = want
+            next_check = now + 60
+        blink = not blink
+        for bay in range(1, 5):                              # disk LEDs, 4 bays
+            d = disks.get(bay)
+            n = io_count(d) if d else None
+            busy = n is not None and last_io.get(bay) not in (None, n)
+            last_io[bay] = n
+            write(LEDS.format('amber', bay), '1' if d in failed else '0')
+            write(LEDS.format('green', bay), '0' if not d or d in failed or (busy and blink) else '1')
+        if micro is not None and select.select([micro], [], [], 0)[0]:
+            data = os.read(micro, 64)
+            log('microcontroller sent: ' + ' '.join(f'0x{b:02x}({chr(b) if 32 <= b < 127 else "?"})' for b in data))
+        time.sleep(0.2)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit(0)

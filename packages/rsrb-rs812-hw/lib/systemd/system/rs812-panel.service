@@ -1,0 +1,12 @@
+[Unit]
+Description=RS812 front panel: disk/status/power LEDs, fan check (like DSM)
+After=local-fs.target mdmonitor.service
+
+[Service]
+ExecStart=/usr/sbin/rs812-panel
+Restart=always
+RestartSec=5
+Nice=5
+
+[Install]
+WantedBy=multi-user.target

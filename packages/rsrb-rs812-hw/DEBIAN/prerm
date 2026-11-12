@@ -1,3 +1,3 @@
 #!/bin/sh
 set -e
-if [ "$1" = remove ]; then systemctl disable --now rs812-fan.service >/dev/null 2>&1 || true; fi
+if [ "$1" = remove ]; then systemctl disable --now rs812-fan.service rs812-panel.service >/dev/null 2>&1 || true; fi

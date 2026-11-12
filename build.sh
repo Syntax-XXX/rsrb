@@ -30,8 +30,8 @@ done
 # RSRB kernels (armel, RS812): per flavor a versioned package + a linux-image-<flavor> metapackage
 KB=${KERNEL_BUILD:-/root/rs812-debian/kernel/build}
 built=0
-for fl in "out-flash:rsrb:core:Only what a NAS needs is built in." \
-          "out-full:rsrb-full:full:Adds memory limits (memory cgroup), netfilter/NAT, WireGuard, IPv6, NTFS3 and CIFS."; do
+for fl in "out-flash:rsrb:core:Only what a NAS needs, tuned for speed (fastest: NFS ~50 MB/s read, ~37 MB/s write)." \
+          "out-full:rsrb-full:full:Adds memory limits for containers (memory cgroup, ~20 % slower writes), netfilter/NAT, WireGuard, IPv6, NTFS3 and CIFS."; do
   IFS=: read -r od meta flavor fdesc <<<"$fl"
   KOUT=$KB/$od
   [ -f "$KOUT/uImage" ] && [ -f "$KOUT/spi-nor-unlock.ko" ] || continue

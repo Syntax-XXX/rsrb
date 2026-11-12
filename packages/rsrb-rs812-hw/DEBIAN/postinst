@@ -7,8 +7,11 @@ if [ "$1" = configure ]; then
   fi
   systemctl daemon-reload >/dev/null 2>&1 || true
   systemctl enable rs812-fan.service >/dev/null 2>&1 || true
-  if [ -n "$2" ] || systemctl is-active -q rs812-fan.service; then systemctl restart rs812-fan.service || true
-  else systemctl start rs812-fan.service || true; fi
+  systemctl enable rs812-panel.service >/dev/null 2>&1 || true
+  for u in rs812-fan rs812-panel; do
+    if [ -n "$2" ] || systemctl is-active -q $u.service; then systemctl restart $u.service || true
+    else systemctl start $u.service || true; fi
+  done
   # apply the tuning rules now too (the network rule runs on "add", i.e. at boot)
   udevadm control --reload-rules 2>/dev/null || true
   for n in /sys/bus/platform/drivers/mv643xx_eth_port/*/net/*; do

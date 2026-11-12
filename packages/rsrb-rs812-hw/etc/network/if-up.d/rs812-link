@@ -1,0 +1,15 @@
+#!/bin/sh
+# RSRB / RS812: after some reboots the 88E1116R PHY sees the switch but never finishes gigabit training
+# (link partner known, "no link"). Restarting autonegotiation fixes it every time, so do that if the
+# link isn't up 10 s after ifup – at most 3 times, in the background.
+case "$IFACE" in eth0|eth1) ;; *) exit 0 ;; esac
+[ "$MODE" = start ] || exit 0
+(
+  for i in 1 2 3; do
+    sleep 10
+    [ "$(cat /sys/class/net/"$IFACE"/carrier 2>/dev/null)" = 1 ] && exit 0
+    logger -t rs812-link "$IFACE: no link after ifup, restarting autonegotiation ($i/3)"
+    /usr/sbin/ethtool -r "$IFACE" 2>/dev/null
+  done
+) </dev/null >/dev/null 2>&1 &
+exit 0
